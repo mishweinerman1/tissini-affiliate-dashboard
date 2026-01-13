@@ -4304,7 +4304,7 @@ Equipo Tissini
         console.log('✅ Auth functions exposed to window');
 
         async function handleLogout() {
-            if (!supabase) return;
+            if (!supabaseClient) return;
             
             try {
                 // Unsubscribe from real-time updates
@@ -4368,10 +4368,10 @@ Equipo Tissini
         // ============================================
         
         async function loadCheckboxStates() {
-            if (!supabase || !currentUser) return;
-            
+            if (!supabaseClient || !currentUser) return;
+
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('checkboxes')
                     .select('*');
                 
@@ -4397,13 +4397,13 @@ Equipo Tissini
         }
         
         async function saveCheckboxState(checkboxId, checked) {
-            if (!supabase || !currentUser) {
+            if (!supabaseClient || !currentUser) {
                 console.warn('Not logged in - changes will not be saved');
                 return;
             }
-            
+
             try {
-                const { error } = await supabase
+                const { error } = await supabaseClient
                     .from('checkboxes')
                     .upsert({
                         checkbox_id: checkboxId,
@@ -4413,9 +4413,9 @@ Equipo Tissini
                     }, {
                         onConflict: 'checkbox_id'
                     });
-                
+
                 if (error) throw error;
-                
+
                 showSyncMessage('✓ Synced', false);
                 
             } catch (error) {
@@ -4425,10 +4425,10 @@ Equipo Tissini
         }
         
         function subscribeToCheckboxChanges() {
-            if (!supabase || !currentUser) return;
+            if (!supabaseClient || !currentUser) return;
 
             // Subscribe to real-time changes
-            checkboxSubscription = supabase
+            checkboxSubscription = supabaseClient
                 .channel('checkbox-changes')
                 .on('postgres_changes',
                     {
@@ -4468,13 +4468,13 @@ Equipo Tissini
         let fieldSubscription = null;
 
         async function saveFieldValue(fieldId, value) {
-            if (!supabase || !currentUser) {
+            if (!supabaseClient || !currentUser) {
                 console.warn('Not logged in - field changes will not be saved');
                 return;
             }
 
             try {
-                const { error } = await supabase
+                const { error } = await supabaseClient
                     .from('dashboard_fields')
                     .upsert({
                         field_id: fieldId,
@@ -4495,7 +4495,7 @@ Equipo Tissini
         }
 
         async function loadFieldValues() {
-            if (!supabase || !currentUser) {
+            if (!supabaseClient || !currentUser) {
                 console.warn('Not logged in - loading default values');
                 // Initialize with default values from HTML
                 document.querySelectorAll('.editable').forEach(function(element) {
@@ -4513,7 +4513,7 @@ Equipo Tissini
             }
 
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('dashboard_fields')
                     .select('*');
 
@@ -4545,10 +4545,10 @@ Equipo Tissini
         }
 
         function subscribeToFieldChanges() {
-            if (!supabase || !currentUser) return;
+            if (!supabaseClient || !currentUser) return;
 
             // Subscribe to real-time field changes
-            fieldSubscription = supabase
+            fieldSubscription = supabaseClient
                 .channel('field-changes')
                 .on('postgres_changes',
                     {
@@ -4599,8 +4599,8 @@ Equipo Tissini
                 // Add click handler
                 item.addEventListener('click', async function(e) {
                     e.stopPropagation();
-                    
-                    if (!supabase || !currentUser) {
+
+                    if (!supabaseClient || !currentUser) {
                         alert('Please login to save your progress');
                         showAuthModal();
                         return;
@@ -4618,18 +4618,18 @@ Equipo Tissini
         }
         
         async function resetAllCheckboxes() {
-            if (!supabase || !currentUser) {
+            if (!supabaseClient || !currentUser) {
                 alert('Please login to reset checkboxes');
                 return;
             }
-            
+
             if (!confirm('Are you sure you want to reset all checkboxes? This will reset them for ALL USERS and cannot be undone.')) {
                 return;
             }
-            
+
             try {
                 // Delete all checkboxes from database
-                const { error } = await supabase
+                const { error } = await supabaseClient
                     .from('checkboxes')
                     .delete()
                     .neq('checkbox_id', ''); // Delete all rows
