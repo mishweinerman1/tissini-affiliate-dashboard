@@ -968,12 +968,16 @@
 
                         // Enable inline editing - INLINE VERSION
                         console.log('✏️ Enabling inline editing for authenticated user (existing session)');
-                        const editableElements = document.querySelectorAll('.tab-content p, .tab-content h3, .tab-content h4, .tab-content ul:not(.checklist) li, .tab-content td, .badge, header h1, header .subtitle');
-                        console.log('Found', editableElements.length, 'editable elements');
+                        const editableElements = document.querySelectorAll('.tab-content p, .tab-content h3, .tab-content h4, .tab-content li, .tab-content td, .badge, header h1, header .subtitle');
+                        console.log('Found', editableElements.length, 'editable elements (will skip checklists)');
 
                         editableElements.forEach((element, index) => {
-                            // Skip elements with input/button or in auth modal
-                            if (element.querySelector('input') || element.querySelector('button') || element.closest('.auth-modal')) {
+                            // Skip elements with input/button or in auth modal OR in checklist
+                            if (element.querySelector('input') ||
+                                element.querySelector('button') ||
+                                element.closest('.auth-modal') ||
+                                element.closest('.checklist') ||
+                                element.classList.contains('checklist')) {
                                 return;
                             }
 
@@ -1109,8 +1113,12 @@
                             console.log('Found', editableElements.length, 'editable elements');
 
                             editableElements.forEach((element, index) => {
-                                // Skip elements with input/button or in auth modal
-                                if (element.querySelector('input') || element.querySelector('button') || element.closest('.auth-modal')) {
+                                // Skip elements with input/button or in auth modal OR in checklist
+                                if (element.querySelector('input') ||
+                                    element.querySelector('button') ||
+                                    element.closest('.auth-modal') ||
+                                    element.closest('.checklist') ||
+                                    element.classList.contains('checklist')) {
                                     return;
                                 }
 
