@@ -242,22 +242,17 @@
         }
 
         .checklist li {
-            padding: 12px 8px 12px 35px;
+            padding: 8px 0;
+            padding-left: 30px;
             position: relative;
-            border-radius: 6px;
-            margin: 4px 0;
-            transition: all 0.2s;
         }
 
         .checklist li:before {
             content: "☐";
             position: absolute;
-            left: 8px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.4em;
+            left: 0;
+            font-size: 1.2em;
             color: #667eea;
-            line-height: 1;
         }
 
         .badge {
@@ -544,23 +539,23 @@
         .checklist li {
             cursor: pointer;
             user-select: none;
+            transition: all 0.2s;
         }
 
         .checklist li:hover {
-            background: #f0f3ff;
-            transform: translateX(2px);
+            background: #f5f5f5;
+            padding-left: 32px;
         }
 
         .checklist li.checked:before {
-            content: "✓";
+            content: "☑";
             color: #28a745;
             font-weight: bold;
-            font-size: 1.2em;
         }
 
         .checklist li.checked {
             text-decoration: line-through;
-            opacity: 0.7;
+            opacity: 0.6;
             background: #e8f5e9;
         }
 
@@ -623,21 +618,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.7);
             z-index: 10000;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(10px);
         }
 
         .auth-modal.show {
             display: flex;
-        }
-
-        /* Hide content when auth modal is shown */
-        .auth-modal.show ~ .container {
-            filter: blur(20px);
-            pointer-events: none;
         }
 
         .auth-modal-content {
@@ -899,328 +887,10 @@
         </div>
     </div>
 
-    <!-- Inline Auth Handler Script - Runs immediately -->
-    <script>
-        console.log('🔧 Inline auth script running...');
-
-        // Simple auth handler that works immediately
-        (function() {
-            const SUPABASE_URL = 'https://acfbqqaijalemuvoayhm.supabase.co';
-            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjZmJxcWFpamFsZW11dm9heWhtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzMTE1MjMsImV4cCI6MjA4Mzg4NzUyM30.4oiqLJo5sYB4cCz052Ml2vP6haZThTketOxrkhY5ylM';
-
-            let supabaseClient = null;
-
-            // Check if user is already logged in
-            async function checkExistingSession() {
-                try {
-                    const { data: { session } } = await supabaseClient.auth.getSession();
-
-                    if (session) {
-                        console.log('✅ Existing session found:', session.user.email);
-                        // Hide modal and show user info
-                        document.getElementById('authModal').classList.remove('show');
-                        document.getElementById('userInfo').style.display = 'flex';
-                        document.getElementById('userEmail').textContent = session.user.email;
-
-                        // Initialize checkboxes for authenticated users
-                        window.currentUser = session.user;
-                        initCheckboxSystem(true);
-
-                        // Show add task section
-                        const addTaskSection = document.getElementById('addTaskSection');
-                        if (addTaskSection) addTaskSection.style.display = 'block';
-                    } else {
-                        console.log('⚠️ No session found - login required');
-                        // Keep modal visible
-                        document.getElementById('authModal').classList.add('show');
-
-                        // Load checkboxes in read-only mode
-                        initCheckboxSystem(false);
-                    }
-                } catch (error) {
-                    console.error('Session check error:', error);
-                    // On error, show login modal
-                    document.getElementById('authModal').classList.add('show');
-                }
-            }
-
-            // Wait for Supabase SDK to load
-            function initAuth() {
-                if (typeof window.supabase === 'undefined') {
-                    console.log('⏳ Waiting for Supabase SDK...');
-                    setTimeout(initAuth, 100);
-                    return;
-                }
-
-                supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-                console.log('✅ Supabase client created inline');
-
-                // Check for existing session
-                checkExistingSession();
-
-                // Attach login handler
-                const loginForm = document.getElementById('loginFormElement');
-                if (loginForm) {
-                    loginForm.onsubmit = async function(e) {
-                        e.preventDefault();
-                        console.log('🔐 Login form submitted');
-
-                        const email = document.getElementById('loginEmail').value;
-                        const password = document.getElementById('loginPassword').value;
-                        const button = document.getElementById('loginButton');
-                        const errorDiv = document.getElementById('authError');
-
-                        button.disabled = true;
-                        button.textContent = 'Logging in...';
-                        errorDiv.innerHTML = '';
-
-                        try {
-                            const { data, error } = await supabaseClient.auth.signInWithPassword({
-                                email: email,
-                                password: password
-                            });
-
-                            if (error) throw error;
-
-                            console.log('✅ Login successful!', data.user.email);
-
-                            // Hide modal
-                            document.getElementById('authModal').classList.remove('show');
-
-                            // Show user info
-                            document.getElementById('userInfo').style.display = 'flex';
-                            document.getElementById('userEmail').textContent = data.user.email;
-
-                            // Store supabase client and user for later use
-                            window.supabaseAuthClient = supabaseClient;
-                            window.currentUser = data.user;
-
-                            // Initialize checkboxes for authenticated users
-                            initCheckboxSystem(true);
-
-                            // Show add task section
-                            const addTaskSection = document.getElementById('addTaskSection');
-                            if (addTaskSection) addTaskSection.style.display = 'block';
-
-                            console.log('🎉 Dashboard access granted!');
-
-                        } catch (error) {
-                            console.error('❌ Login error:', error);
-                            errorDiv.innerHTML = '<div style="color: red; padding: 10px; background: #fee; border-radius: 4px; margin: 10px 0;">❌ ' + error.message + '</div>';
-                            button.disabled = false;
-                            button.textContent = 'Login';
-                        }
-                    };
-                    console.log('✅ Login handler attached inline');
-                } else {
-                    console.error('❌ Login form not found');
-                }
-            }
-
-            // Simple logout function
-            window.handleLogoutSimple = async function() {
-                if (supabaseClient) {
-                    await supabaseClient.auth.signOut();
-                    console.log('👋 Logged out');
-                    // Show modal again
-                    document.getElementById('authModal').classList.add('show');
-                    // Hide user info
-                    document.getElementById('userInfo').style.display = 'none';
-                    // Reload page to clear state
-                    window.location.reload();
-                }
-            };
-
-            // Checkbox system
-            window.initCheckboxSystem = async function(isAuthenticated) {
-                console.log('🔲 Initializing checkbox system, authenticated:', isAuthenticated);
-
-                const checklistItems = document.querySelectorAll('.checklist li');
-
-                // Load checkbox states from database
-                try {
-                    const { data, error } = await supabaseClient
-                        .from('checkboxes')
-                        .select('*');
-
-                    if (error) throw error;
-
-                    console.log('✅ Loaded', data.length, 'checkbox states');
-
-                    // Apply saved states
-                    checklistItems.forEach((item, index) => {
-                        const itemText = item.textContent.trim();
-                        const itemId = 'checkbox-' + index;
-                        item.setAttribute('data-checkbox-id', itemId);
-
-                        // Find saved state
-                        const savedState = data.find(row => row.checkbox_id === itemId);
-                        if (savedState && savedState.checked) {
-                            item.classList.add('checked');
-                        }
-
-                        // Add click handler only for authenticated users
-                        if (isAuthenticated) {
-                            item.style.cursor = 'pointer';
-                            item.onclick = async function(e) {
-                                e.stopPropagation();
-                                const isChecked = this.classList.toggle('checked');
-
-                                // Save to database
-                                try {
-                                    const { error } = await supabaseClient
-                                        .from('checkboxes')
-                                        .upsert({
-                                            checkbox_id: itemId,
-                                            checked: isChecked,
-                                            updated_by: window.currentUser.email,
-                                            updated_at: new Date().toISOString()
-                                        }, {
-                                            onConflict: 'checkbox_id'
-                                        });
-
-                                    if (error) throw error;
-                                    console.log('✅ Checkbox saved:', itemId, isChecked);
-
-                                    // Update progress
-                                    updateProgress();
-
-                                } catch (error) {
-                                    console.error('❌ Error saving checkbox:', error);
-                                    // Revert on error
-                                    this.classList.toggle('checked');
-                                }
-                            };
-                        } else {
-                            // Read-only for non-authenticated users
-                            item.style.cursor = 'default';
-                            item.onclick = function(e) {
-                                e.preventDefault();
-                                console.log('🔒 Login required to edit checkboxes');
-                            };
-                        }
-                    });
-
-                    // Subscribe to real-time updates
-                    supabaseClient
-                        .channel('checkbox-changes')
-                        .on('postgres_changes',
-                            {
-                                event: '*',
-                                schema: 'public',
-                                table: 'checkboxes'
-                            },
-                            (payload) => {
-                                console.log('🔄 Real-time checkbox update:', payload);
-                                if (payload.eventType === 'INSERT' || payload.eventType === 'UPDATE') {
-                                    const data = payload.new;
-                                    const checkbox = document.querySelector(`[data-checkbox-id="${data.checkbox_id}"]`);
-                                    if (checkbox) {
-                                        if (data.checked) {
-                                            checkbox.classList.add('checked');
-                                        } else {
-                                            checkbox.classList.remove('checked');
-                                        }
-                                        updateProgress();
-                                    }
-                                }
-                            }
-                        )
-                        .subscribe((status) => {
-                            if (status === 'SUBSCRIBED') {
-                                console.log('✅ Subscribed to checkbox updates');
-                            }
-                        });
-
-                    // Update progress initially
-                    updateProgress();
-
-                } catch (error) {
-                    console.error('❌ Error loading checkboxes:', error);
-                }
-            };
-
-            // Update progress bar
-            function updateProgress() {
-                const checklistItems = document.querySelectorAll('.checklist li');
-                const checkedItems = document.querySelectorAll('.checklist li.checked');
-                const total = checklistItems.length;
-                const completed = checkedItems.length;
-                const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
-
-                const progressBar = document.getElementById('progressBar');
-                const progressText = document.getElementById('progressText');
-
-                if (progressBar) {
-                    progressBar.style.width = percentage + '%';
-                    progressBar.textContent = percentage + '%';
-                }
-
-                if (progressText) {
-                    progressText.textContent = completed + ' of ' + total + ' tasks completed';
-                }
-            }
-
-            // Add new task function
-            window.addNewTask = function() {
-                const input = document.getElementById('newTaskInput');
-                const weekSelector = document.getElementById('weekSelector');
-                const taskText = input.value.trim();
-                const selectedWeek = weekSelector.value;
-
-                if (!taskText) {
-                    alert('Please enter a task description');
-                    return;
-                }
-
-                if (!window.currentUser) {
-                    alert('You must be logged in to add tasks');
-                    return;
-                }
-
-                // Find the selected checklist
-                const checklist = document.getElementById(selectedWeek);
-                if (!checklist) {
-                    alert('Could not find the selected week checklist');
-                    return;
-                }
-
-                // Create new list item
-                const newItem = document.createElement('li');
-                newItem.textContent = taskText;
-                newItem.classList.add('checklist-item-new');
-                newItem.style.background = '#e3f2fd';
-                newItem.style.borderLeft = '4px solid #2196F3';
-
-                // Add to the top of the checklist
-                checklist.insertBefore(newItem, checklist.firstChild);
-
-                // Clear input
-                input.value = '';
-
-                // Re-initialize checkboxes to include the new item
-                initCheckboxSystem(true);
-
-                const weekName = weekSelector.options[weekSelector.selectedIndex].text;
-                console.log('✅ New task added to', weekName + ':', taskText);
-
-                // Show success message
-                alert('✅ Task added to ' + weekName);
-            };
-
-            // Start initialization
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', initAuth);
-            } else {
-                initAuth();
-            }
-        })();
-    </script>
-
     <!-- User Info Bar (shown when logged in) -->
     <div id="userInfo" class="user-info" style="display: none;">
         <span>👤 <span class="user-email" id="userEmail"></span></span>
-        <button class="logout-button" onclick="handleLogoutSimple()">Logout</button>
+        <button class="logout-button" onclick="handleLogout()">Logout</button>
     </div>
 
     <!-- Connection Indicator -->
@@ -3069,31 +2739,8 @@ Equipo Tissini
                 </div>
                 <p style="margin: 10px 0 0 0; font-size: 0.9em; color: #666;">
                     <span id="progressText">0 of 0 tasks completed</span>
+                    <button class="reset-button" onclick="resetAllCheckboxes()" style="float: right;">Reset All Checkboxes</button>
                 </p>
-
-                <!-- Add New Task (Only visible when authenticated) -->
-                <div id="addTaskSection" style="display: none; margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
-                    <h5 style="margin: 0 0 10px 0; color: #667eea;">➕ Add New Task</h5>
-                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-                        <label style="display: flex; align-items: center; gap: 8px; font-size: 0.95em; color: #666;">
-                            <span style="font-weight: 500;">Week:</span>
-                            <select id="weekSelector" style="padding: 8px 12px; border: 2px solid #ddd; border-radius: 6px; font-size: 0.95em; background: white; cursor: pointer;">
-                                <option value="week1-checklist">Week 1: Foundation</option>
-                                <option value="week2-checklist">Week 2: Content & Resources</option>
-                                <option value="week3-checklist">Week 3: Systems & Processes</option>
-                                <option value="week4-checklist">Week 4: Recruitment Preparation</option>
-                                <option value="week5-checklist">Week 5: Soft Launch</option>
-                                <option value="week6-checklist">Week 6: Recruit Wave 1</option>
-                                <option value="week7-checklist">Week 7: Recruit Wave 2</option>
-                                <option value="week8-checklist">Week 8: Optimization</option>
-                            </select>
-                        </label>
-                    </div>
-                    <div style="display: flex; gap: 10px;">
-                        <input type="text" id="newTaskInput" placeholder="Enter task description..." style="flex: 1; padding: 8px 12px; border: 2px solid #ddd; border-radius: 6px; font-size: 0.95em;">
-                        <button onclick="addNewTask()" style="padding: 8px 20px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 500;">Add Task</button>
-                    </div>
-                </div>
             </div>
 
 
@@ -3101,10 +2748,10 @@ Equipo Tissini
             <div class="timeline">
                 <div class="timeline-item">
                     <h4>Week 1: Foundation</h4>
-                    <ul class="checklist" id="week1-checklist">
-                        <li style="background: #fff8e1; border-left: 4px solid #ffc107;">Decide Brand Name</li>
-                        <li style="background: #fff8e1; border-left: 4px solid #ffc107;">Select 3 to 5 jeans models</li>
-                        <li style="background: #fff8e1; border-left: 4px solid #ffc107;">Start product development</li>
+                    <ul class="checklist">
+                        <li style="background: #fff8e1; padding: 8px; border-left: 4px solid #ffc107;">Decide Brand Name</li>
+                        <li style="background: #fff8e1; padding: 8px; border-left: 4px solid #ffc107;">Select 3 to 5 jeans models</li>
+                        <li style="background: #fff8e1; padding: 8px; border-left: 4px solid #ffc107;">Start product development</li>
                         <li>Select and set up affiliate platform (Refersion)</li>
                         <li>Install TikTok Pixel on website</li>
                         <li>Set up Northbeam integration</li>
@@ -3116,7 +2763,7 @@ Equipo Tissini
                 </div>
                 <div class="timeline-item">
                     <h4>Week 2: Content & Resources</h4>
-                    <ul class="checklist" id="week2-checklist">
+                    <ul class="checklist">
                         <li>Create all training modules (Modules 1-6)</li>
                         <li>Film product demo videos</li>
                         <li>Photograph all jean styles (high-res)</li>
@@ -3128,7 +2775,7 @@ Equipo Tissini
                 </div>
                 <div class="timeline-item">
                     <h4>Week 3: Systems & Processes</h4>
-                    <ul class="checklist" id="week3-checklist">
+                    <ul class="checklist">
                         <li>Build email automation sequences</li>
                         <li>Set up payment processing (PayPal/bank)</li>
                         <li>Create private community (Telegram/WhatsApp)</li>
@@ -3140,7 +2787,7 @@ Equipo Tissini
                 </div>
                 <div class="timeline-item">
                     <h4>Week 4: Recruitment Preparation</h4>
-                    <ul class="checklist" id="week4-checklist">
+                    <ul class="checklist">
                         <li>Identify 100 target TikTokers for outreach</li>
                         <li>Write outreach scripts</li>
                         <li>Create recruitment content (videos)</li>
@@ -3156,7 +2803,7 @@ Equipo Tissini
             <div class="timeline">
                 <div class="timeline-item">
                     <h4>Week 5: Soft Launch</h4>
-                    <ul class="checklist" id="week5-checklist">
+                    <ul class="checklist">
                         <li>Invite 10-20 beta affiliates</li>
                         <li>Onboard first cohort</li>
                         <li>Host first training call</li>
@@ -3168,7 +2815,7 @@ Equipo Tissini
                 </div>
                 <div class="timeline-item">
                     <h4>Week 6: Recruit Wave 1</h4>
-                    <ul class="checklist" id="week6-checklist">
+                    <ul class="checklist">
                         <li>Begin direct outreach (Goal: 30 signups)</li>
                         <li>Launch landing page</li>
                         <li>Email emprendedoras (Goal: 15 signups)</li>
@@ -3180,7 +2827,7 @@ Equipo Tissini
                 </div>
                 <div class="timeline-item">
                     <h4>Week 7: Recruit Wave 2</h4>
-                    <ul class="checklist" id="week7-checklist">
+                    <ul class="checklist">
                         <li>Continue outreach (Goal: 25 more signups)</li>
                         <li>Post recruitment content on Tissini account</li>
                         <li>Third weekly call</li>
@@ -3191,7 +2838,7 @@ Equipo Tissini
                 </div>
                 <div class="timeline-item">
                     <h4>Week 8: Optimization</h4>
-                    <ul class="checklist" id="week8-checklist">
+                    <ul class="checklist">
                         <li>Analyze first month data</li>
                         <li>Identify top-performing content types</li>
                         <li>Double down on what works</li>
