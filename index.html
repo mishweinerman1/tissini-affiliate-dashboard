@@ -966,6 +966,11 @@
                         window.currentUser = session.user;
                         initCheckboxSystem(true);
 
+                        // Enable inline editing
+                        if (typeof enableInlineEditing === 'function') {
+                            enableInlineEditing();
+                        }
+
                         // Show add task section
                         const addTaskSection = document.getElementById('addTaskSection');
                         if (addTaskSection) addTaskSection.style.display = 'block';
@@ -1037,6 +1042,11 @@
 
                             // Initialize checkboxes for authenticated users
                             initCheckboxSystem(true);
+
+                            // Enable inline editing
+                            if (typeof enableInlineEditing === 'function') {
+                                enableInlineEditing();
+                            }
 
                             // Show add task section
                             const addTaskSection = document.getElementById('addTaskSection');
