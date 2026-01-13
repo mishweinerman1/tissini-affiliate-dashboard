@@ -1,0 +1,3121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tissini TikTok Affiliate Program Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            background: white;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .nav-tab {
+            padding: 12px 24px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .nav-tab:hover {
+            background: #e0e0e0;
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: fadeIn 0.3s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            font-size: 1.8em;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin-top: 25px;
+            margin-bottom: 12px;
+            font-size: 1.4em;
+        }
+
+        h4 {
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .card-highlight {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-left-color: #764ba2;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        .collapsible {
+            background: #667eea;
+            color: white;
+            cursor: pointer;
+            padding: 15px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            margin: 10px 0;
+            transition: all 0.3s;
+        }
+
+        .collapsible:hover {
+            background: #5568d3;
+        }
+
+        .collapsible:after {
+            content: '\002B';
+            color: white;
+            font-weight: bold;
+            float: right;
+            margin-left: 5px;
+        }
+
+        .collapsible.active:after {
+            content: "\2212";
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background: #f8f9fa;
+            border-radius: 0 0 8px 8px;
+            margin-bottom: 10px;
+        }
+
+        .collapsible-content-inner {
+            padding: 20px;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .metric-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li {
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .checklist li:before {
+            content: "☐";
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+            color: #667eea;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 5px;
+        }
+
+        .badge-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .badge-warning {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .badge-info {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .badge-purple {
+            background: #764ba2;
+            color: white;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+            margin: 20px 0;
+        }
+
+        .timeline:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 20px;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 5px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #667eea;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #667eea;
+        }
+
+        .video-script {
+            background: #1a1a1a;
+            color: #00ff00;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            border-left: 4px solid #00ff00;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 10px 5px;
+            transition: transform 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            color: #155724;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            color: #856404;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            color: #721c24;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            color: #0c5460;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 20px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            height: 100%;
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .metric-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 20px 0;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-box:focus {
+            border-color: #764ba2;
+            box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Editable field styles */
+        .editable {
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: all 0.2s;
+            position: relative;
+            display: inline-block;
+            border: 2px dashed transparent;
+        }
+
+        .editable:hover {
+            background: #fff3cd;
+            border-color: #ffc107;
+        }
+
+        .editable:focus {
+            outline: none;
+            background: #fff;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+
+        .editable::after {
+            content: "✏️";
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: opacity 0.2s;
+            font-size: 0.8em;
+        }
+
+        .editable:hover::after {
+            opacity: 1;
+        }
+
+        .edit-notice {
+            background: #d1ecf1;
+            border-left: 4px solid #0c5460;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .save-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+
+        .save-indicator.show {
+            opacity: 1;
+        }
+
+        .calculated {
+            background: #e8f5e9;
+            font-style: italic;
+            cursor: not-allowed;
+        }
+
+        .calculated:hover {
+            background: #c8e6c9;
+        }
+
+        .calculated::after {
+            content: "📊";
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: opacity 0.2s;
+            font-size: 0.8em;
+        }
+
+        .calculated:hover::after {
+            opacity: 1;
+        }
+
+        .editable-input {
+            background: #fff8e1;
+        }
+
+        .editable-input:hover {
+            background: #fff3cd;
+        }
+    </style>
+</head>
+<body>
+    <div class="save-indicator" id="saveIndicator">✓ Saved</div>
+
+    <div class="container">
+        <header>
+            <h1>🎯 Tissini TikTok Affiliate Program</h1>
+            <p class="subtitle">Complete Implementation Dashboard</p>
+            <div style="margin-top: 20px;">
+                <span class="badge badge-success">Revenue Target: $90K+/mo</span>
+                <span class="badge badge-info">Timeline: 2-3 Months</span>
+                <span class="badge badge-purple">150+ Affiliates</span>
+            </div>
+        </header>
+
+        <div class="edit-notice">
+            💡 <strong>Smart Dashboard:</strong> Yellow fields (✏️) are editable inputs. Green fields (📊) are auto-calculated based on your inputs. Change any input and watch related numbers update automatically!
+        </div>
+
+        <input type="text" id="searchBox" class="search-box" placeholder="🔍 Search anything in the dashboard..." onkeyup="searchContent()">
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="openTab(event, 'overview')">📊 Overview</button>
+            <button class="nav-tab" onclick="openTab(event, 'economics')">💰 Economics</button>
+            <button class="nav-tab" onclick="openTab(event, 'training')">📚 Training</button>
+            <button class="nav-tab" onclick="openTab(event, 'content')">🎬 Content Strategy</button>
+            <button class="nav-tab" onclick="openTab(event, 'tracking')">🔍 Tracking</button>
+            <button class="nav-tab" onclick="openTab(event, 'recruitment')">🎯 Recruitment</button>
+            <button class="nav-tab" onclick="openTab(event, 'support')">📞 Weekly Support</button>
+            <button class="nav-tab" onclick="openTab(event, 'implementation')">🚀 Implementation</button>
+            <button class="nav-tab" onclick="openTab(event, 'legal')">⚖️ Legal</button>
+            <button class="nav-tab" onclick="openTab(event, 'comparison')">📈 Comparison</button>
+        </div>
+
+        <!-- OVERVIEW TAB -->
+        <div id="overview" class="tab-content active">
+            <h2>Program Overview</h2>
+
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Target Monthly Revenue</div>
+                    <div class="metric-value"><span class="editable" contenteditable="true" data-key="target-revenue">$90K+</span></div>
+                    <div class="metric-label">Within 6 months</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Target Affiliates</div>
+                    <div class="metric-value"><span class="editable" contenteditable="true" data-key="target-affiliates">150+</span></div>
+                    <div class="metric-label">Active creators</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Commission Range</div>
+                    <div class="metric-value"><span class="editable" contenteditable="true" data-key="commission-range">15-30%</span></div>
+                    <div class="metric-label">Per sale</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Average Order Value</div>
+                    <div class="metric-value">$<span class="editable editable-input" contenteditable="true" data-key="aov">75</span></div>
+                    <div class="metric-label">Per transaction</div>
+                </div>
+            </div>
+
+            <div class="card card-highlight">
+                <h3>Program Model</h3>
+                <p><strong>Commission-based TikTok affiliate sales with no inventory requirement</strong></p>
+                <ul>
+                    <li>Affiliates promote Tissini jeans via TikTok content</li>
+                    <li>Earn commission on sales through unique affiliate links</li>
+                    <li>Attribution tracked via TikTok + Northbeam</li>
+                    <li>Qualified affiliates ($50+/month) receive training + weekly support</li>
+                    <li>Zero inventory risk for affiliates</li>
+                </ul>
+            </div>
+
+            <h3>Key Success Factors</h3>
+            <div class="card">
+                <h4>✅ Why This Works</h4>
+                <ul>
+                    <li><strong>Scalability:</strong> No inventory constraints - can grow to thousands of affiliates</li>
+                    <li><strong>Low Barrier:</strong> $0 to start vs $500-1000 for emprendedoras</li>
+                    <li><strong>Performance-Based:</strong> Only pay commissions on actual sales</li>
+                    <li><strong>Viral Potential:</strong> TikTok algorithm can drive massive organic reach</li>
+                    <li><strong>Visual Product:</strong> Jeans are perfect for before/after transformation content</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>🎯 Target Outcomes (6 Months)</h4>
+                <ul>
+                    <li>150+ active affiliates posting regularly</li>
+                    <li>$90,000+ monthly revenue from affiliate channel</li>
+                    <li>$18,000 monthly commission paid (20% avg)</li>
+                    <li>140-230% ROI on program investment</li>
+                    <li>Affiliate channel represents 30%+ of total revenue</li>
+                </ul>
+            </div>
+
+            <h3>Program Structure</h3>
+            <table>
+                <tr>
+                    <th>Component</th>
+                    <th>Description</th>
+                    <th>Owner</th>
+                </tr>
+                <tr>
+                    <td>Affiliate Platform</td>
+                    <td>Refersion - tracking, dashboards, payments</td>
+                    <td>Tech Team</td>
+                </tr>
+                <tr>
+                    <td>Attribution</td>
+                    <td>TikTok Pixel + Northbeam analytics</td>
+                    <td>Marketing Team</td>
+                </tr>
+                <tr>
+                    <td>Training</td>
+                    <td>6 modules + weekly support calls</td>
+                    <td>Affiliate Manager</td>
+                </tr>
+                <tr>
+                    <td>Content</td>
+                    <td>7 content types, templates, resources</td>
+                    <td>Content Team</td>
+                </tr>
+                <tr>
+                    <td>Recruitment</td>
+                    <td>Direct outreach, landing page, current emprendedoras</td>
+                    <td>Affiliate Manager</td>
+                </tr>
+                <tr>
+                    <td>Support</td>
+                    <td>Weekly Zoom calls, private community, 1-on-1</td>
+                    <td>Affiliate Manager</td>
+                </tr>
+            </table>
+
+            <div class="alert alert-info">
+                <strong>💡 Strategic Note:</strong> This affiliate program COMPLEMENTS (not replaces) the existing emprendedora model. Both channels can coexist and even overlap - emprendedoras can become affiliates too!
+            </div>
+        </div>
+
+        <!-- ECONOMICS TAB -->
+        <div id="economics" class="tab-content">
+            <h2>Economics & Commission Structure</h2>
+
+            <h3>Commission Tiers</h3>
+            <table>
+                <tr>
+                    <th>Tier</th>
+                    <th>Monthly Sales</th>
+                    <th>Commission %</th>
+                    <th>Earnings per $75 Sale</th>
+                    <th>Benefits</th>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-info">Tier 1: New</span></td>
+                    <td>$0 - $<span class="editable editable-input" contenteditable="true" data-key="tier1-max">499</span></td>
+                    <td><span class="editable editable-input" contenteditable="true" data-key="tier1-commission">15</span>%</td>
+                    <td>$<span class="editable calculated" data-key="tier1-earnings" data-formula="aov * tier1-commission / 100">11.25</span></td>
+                    <td>Monthly payout, basic support</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-success">Tier 2: Active</span></td>
+                    <td>$<span class="editable editable-input" contenteditable="true" data-key="tier2-min">500</span> - $<span class="editable editable-input" contenteditable="true" data-key="tier2-max">1,999</span></td>
+                    <td><span class="editable editable-input" contenteditable="true" data-key="tier2-commission">20</span>%</td>
+                    <td>$<span class="editable calculated" data-key="tier2-earnings" data-formula="aov * tier2-commission / 100">15.00</span></td>
+                    <td>Bi-weekly payout, exclusive releases</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-warning">Tier 3: Top</span></td>
+                    <td>$<span class="editable editable-input" contenteditable="true" data-key="tier3-min">2,000</span> - $<span class="editable editable-input" contenteditable="true" data-key="tier3-max">4,999</span></td>
+                    <td><span class="editable editable-input" contenteditable="true" data-key="tier3-commission">25</span>%</td>
+                    <td>$<span class="editable calculated" data-key="tier3-earnings" data-formula="aov * tier3-commission / 100">18.75</span></td>
+                    <td>Weekly payout, featured content, priority support</td>
+                </tr>
+                <tr>
+                    <td><span class="badge badge-purple">Tier 4: Elite</span></td>
+                    <td>$<span class="editable editable-input" contenteditable="true" data-key="tier4-min">5,000</span>+</td>
+                    <td><span class="editable editable-input" contenteditable="true" data-key="tier4-commission">30</span>%</td>
+                    <td>$<span class="editable calculated" data-key="tier4-earnings" data-formula="aov * tier4-commission / 100">22.50</span></td>
+                    <td>Weekly payout, bonuses, custom codes, co-branding</td>
+                </tr>
+            </table>
+
+            <h3>Revenue Projections</h3>
+
+            <button class="collapsible">Month 1-3 Projections (Low Volume)</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <table>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr>
+                            <td>Active Affiliates</td>
+                            <td><span class="editable editable-input" contenteditable="true" data-key="m1-affiliates">50</span></td>
+                        </tr>
+                        <tr>
+                            <td>Avg Sales per Affiliate</td>
+                            <td>$<span class="editable editable-input" contenteditable="true" data-key="m1-avg-sales">200</span>/month</td>
+                        </tr>
+                        <tr>
+                            <td>Total Revenue</td>
+                            <td>$<span class="editable calculated" data-key="m1-revenue" data-formula="m1-affiliates * m1-avg-sales">10,000</span>/month</td>
+                        </tr>
+                        <tr>
+                            <td>Avg Commission Rate</td>
+                            <td><span class="editable editable-input" contenteditable="true" data-key="m1-commission-rate">18</span>%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total Commission Paid</strong></td>
+                            <td><strong>$<span class="editable calculated" data-key="m1-commission-paid" data-formula="m1-revenue * m1-commission-rate / 100">1,800</span>/month</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Net Revenue</strong></td>
+                            <td><strong>$<span class="editable calculated" data-key="m1-net-revenue" data-formula="m1-revenue - m1-commission-paid">8,200</span>/month</strong></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <button class="collapsible">Month 4-6 Projections (Growing)</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <table>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr>
+                            <td>Active Affiliates</td>
+                            <td><span class="editable editable-input" contenteditable="true" data-key="m4-affiliates">100</span></td>
+                        </tr>
+                        <tr>
+                            <td>Avg Sales per Affiliate</td>
+                            <td>$<span class="editable editable-input" contenteditable="true" data-key="m4-avg-sales">500</span>/month</td>
+                        </tr>
+                        <tr>
+                            <td>Total Revenue</td>
+                            <td>$<span class="editable calculated" data-key="m4-revenue" data-formula="m4-affiliates * m4-avg-sales">50,000</span>/month</td>
+                        </tr>
+                        <tr>
+                            <td>Avg Commission Rate</td>
+                            <td><span class="editable editable-input" contenteditable="true" data-key="m4-commission-rate">20</span>%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total Commission Paid</strong></td>
+                            <td><strong>$<span class="editable calculated" data-key="m4-commission-paid" data-formula="m4-revenue * m4-commission-rate / 100">10,000</span>/month</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Net Revenue</strong></td>
+                            <td><strong>$<span class="editable calculated" data-key="m4-net-revenue" data-formula="m4-revenue - m4-commission-paid">40,000</span>/month</strong></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <button class="collapsible">Month 7-12 Projections (Mature)</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <table>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Value</th>
+                        </tr>
+                        <tr>
+                            <td>Active Affiliates</td>
+                            <td><span class="editable editable-input" contenteditable="true" data-key="m7-affiliates">150</span></td>
+                        </tr>
+                        <tr>
+                            <td>Avg Sales per Affiliate</td>
+                            <td>$<span class="editable editable-input" contenteditable="true" data-key="m7-avg-sales">750</span>/month</td>
+                        </tr>
+                        <tr>
+                            <td>Total Revenue</td>
+                            <td>$<span class="editable calculated" data-key="m7-revenue" data-formula="m7-affiliates * m7-avg-sales">112,500</span>/month</td>
+                        </tr>
+                        <tr>
+                            <td>Avg Commission Rate</td>
+                            <td><span class="editable editable-input" contenteditable="true" data-key="m7-commission-rate">22</span>%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total Commission Paid</strong></td>
+                            <td><strong>$<span class="editable calculated" data-key="m7-commission-paid" data-formula="m7-revenue * m7-commission-rate / 100">24,750</span>/month</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Net Revenue</strong></td>
+                            <td><strong>$<span class="editable calculated" data-key="m7-net-revenue" data-formula="m7-revenue - m7-commission-paid">87,750</span>/month</strong></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <h3>6-Month Budget Summary</h3>
+            <div class="card">
+                <table>
+                    <tr>
+                        <th>Category</th>
+                        <th>Cost Range</th>
+                    </tr>
+                    <tr>
+                        <td>Technology (Refersion, Northbeam, etc.)</td>
+                        <td>$3,600 - $8,400</td>
+                    </tr>
+                    <tr>
+                        <td>Staffing (Affiliate Manager + Support)</td>
+                        <td>$25,000 - $35,000</td>
+                    </tr>
+                    <tr>
+                        <td>Commissions (Variable - performance based)</td>
+                        <td>$30,000 - $60,000</td>
+                    </tr>
+                    <tr>
+                        <td>Incentives & Bonuses</td>
+                        <td>$5,000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total Investment</strong></td>
+                        <td><strong>$63,600 - $108,400</strong></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="card card-highlight">
+                <h4>Expected Returns (6 Months)</h4>
+                <ul>
+                    <li><strong>Revenue Generated:</strong> $200,000 - $300,000</li>
+                    <li><strong>Net Profit:</strong> $90,000 - $240,000</li>
+                    <li><strong>ROI:</strong> 140-230%</li>
+                </ul>
+            </div>
+
+            <div class="alert alert-success">
+                <strong>✅ Key Advantage:</strong> Commissions are 100% performance-based. You only pay when sales happen, making this a low-risk investment with high upside potential.
+            </div>
+        </div>
+
+        <!-- TRAINING TAB -->
+        <div id="training" class="tab-content">
+            <h2>Affiliate Training Program</h2>
+            <p>Complete 6-module curriculum to onboard and enable affiliates</p>
+
+            <button class="collapsible">Module 1: Welcome to Tissini Affiliates (30 minutes)</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Learning Objectives:</h4>
+                    <ul>
+                        <li>How the Tissini affiliate program works</li>
+                        <li>Commission structure and payment schedule</li>
+                        <li>How to use your affiliate link</li>
+                        <li>Support resources available</li>
+                        <li>Success stories from top affiliates</li>
+                    </ul>
+
+                    <h4>Key Points:</h4>
+                    <div class="card">
+                        <ul>
+                            <li>You earn commission ONLY when someone buys through your link</li>
+                            <li>No inventory to buy or manage</li>
+                            <li>We track everything - you just create content</li>
+                            <li>Get paid monthly (or more frequently at higher tiers)</li>
+                            <li>Hit $50 in sales = unlock weekly training calls</li>
+                        </ul>
+                    </div>
+
+                    <h4>Action Items Checklist:</h4>
+                    <ul class="checklist">
+                        <li>Watch welcome video</li>
+                        <li>Save your unique affiliate link</li>
+                        <li>Join private Telegram/WhatsApp group</li>
+                        <li>Review product catalog</li>
+                        <li>Set your first month sales goal</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="collapsible">Module 2: Understanding Tissini Jeans (45 minutes)</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Product Knowledge Essentials:</h4>
+
+                    <div class="card">
+                        <h4>What Makes Tissini Different:</h4>
+                        <ul>
+                            <li>Colombian jean craftsmanship</li>
+                            <li>Levanta cola (booty-lifting) technology</li>
+                            <li>Compression and shaping features</li>
+                            <li>Size range for different body types</li>
+                            <li>Competitive price positioning</li>
+                        </ul>
+                    </div>
+
+                    <h4>Top Selling Jeans (from data):</h4>
+                    <table>
+                        <tr>
+                            <th>Month</th>
+                            <th>Jean Name</th>
+                            <th>Units Sold</th>
+                            <th>Why It Sells</th>
+                        </tr>
+                        <tr>
+                            <td>January</td>
+                            <td>Jean Zulima</td>
+                            <td>157</td>
+                            <td>New year, classic fit</td>
+                        </tr>
+                        <tr>
+                            <td>August</td>
+                            <td>Jean Ilana</td>
+                            <td>275</td>
+                            <td>🏆 TOP PERFORMER - Summer confidence</td>
+                        </tr>
+                        <tr>
+                            <td>October</td>
+                            <td>Jean Aymara (with Faja)</td>
+                            <td>253</td>
+                            <td>Built-in shapewear</td>
+                        </tr>
+                        <tr>
+                            <td>December</td>
+                            <td>Jean Emmie</td>
+                            <td>234</td>
+                            <td>Holiday favorite</td>
+                        </tr>
+                    </table>
+
+                    <h4>Key Selling Points:</h4>
+                    <ol>
+                        <li><strong>Fit Technology</strong> - Engineered to fit curves</li>
+                        <li><strong>Comfort</strong> - All-day wearability</li>
+                        <li><strong>Confidence</strong> - Makes women feel amazing</li>
+                        <li><strong>Value</strong> - Quality at accessible price</li>
+                        <li><strong>Versatility</strong> - Dress up or down</li>
+                    </ol>
+
+                    <h4>Handling Objections:</h4>
+                    <div class="card">
+                        <p><strong>Q: "How do I know my size?"</strong></p>
+                        <p>A: Size guide video/chart + offer personal help</p>
+
+                        <p><strong>Q: "Will it fit my body type?"</strong></p>
+                        <p>A: Show diverse body types in content</p>
+
+                        <p><strong>Q: "Is it worth the price?"</strong></p>
+                        <p>A: Quality comparison, testimonials</p>
+
+                        <p><strong>Q: "What if it doesn't fit?"</strong></p>
+                        <p>A: Explain return/exchange policy</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="collapsible">Module 3: TikTok Content Strategy (90 minutes)</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <p><strong>See full content strategy details in the "Content Strategy" tab</strong></p>
+                    <p>This module covers:</p>
+                    <ul>
+                        <li>7 high-converting content types</li>
+                        <li>Video scripting formulas</li>
+                        <li>Content calendar templates</li>
+                        <li>Production tips and equipment</li>
+                        <li>Posting schedule optimization</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="collapsible">Module 4: Conversion Optimization (60 minutes)</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Profile Optimization:</h4>
+                    <div class="card">
+                        <p><strong>Bio Formula:</strong></p>
+                        <code>[Niche/What You Do] 👖<br>
+                        [Benefit/Result] ✨<br>
+                        [CTA] 👇<br>
+                        [Affiliate Link]</code>
+
+                        <p style="margin-top: 15px;"><strong>Example:</strong></p>
+                        <div class="video-script">
+Fashion tips for real women 👖
+Helping you find jeans that FIT ✨
+Shop my favorites 👇
+[Tissini Affiliate Link]
+                        </div>
+                    </div>
+
+                    <h4>Link Placement Strategy:</h4>
+                    <ol>
+                        <li>TikTok bio (main link)</li>
+                        <li>Pinned comment on every video</li>
+                        <li>Video description (when space allows)</li>
+                        <li>Link sticker (when available)</li>
+                    </ol>
+
+                    <h4>Example Pinned Comment:</h4>
+                    <div class="video-script">
+💙 GET THESE JEANS:
+→ Link in bio!
+→ Jean Ilana (size: 6)
+→ Use code YOURNAME for $5 off first order
+❤️ Like this if I should show more styles!
+                    </div>
+
+                    <h4>Engagement Tactics:</h4>
+                    <div class="card">
+                        <p><strong>Respond to EVERY comment in first 2 hours</strong></p>
+                        <ul>
+                            <li>"Where can I buy?" → "Link in my bio babe! 💙"</li>
+                            <li>"Do these run true to size?" → "Yes! What size are you usually? I can help!"</li>
+                            <li>"How much?" → "$XX through my link - check bio 💕"</li>
+                        </ul>
+                    </div>
+
+                    <h4>Tracking Your Performance:</h4>
+                    <table>
+                        <tr>
+                            <th>Frequency</th>
+                            <th>Metrics to Track</th>
+                        </tr>
+                        <tr>
+                            <td>Daily</td>
+                            <td>Link clicks, buying intent comments, new followers</td>
+                        </tr>
+                        <tr>
+                            <td>Weekly</td>
+                            <td>Total views, engagement rate, conversion rate, sales, commission</td>
+                        </tr>
+                        <tr>
+                            <td>Monthly</td>
+                            <td>Revenue, avg commission/sale, best content types, tier progression</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <button class="collapsible">Module 5: Advanced Strategies (45 minutes)</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Scaling to Each Tier:</h4>
+
+                    <div class="card">
+                        <h4>🎯 Hit $500/Month (Tier 2)</h4>
+                        <p><strong>Math:</strong> 7 sales/month at $75 AOV</p>
+                        <p><strong>Strategy:</strong></p>
+                        <ul>
+                            <li>Post 4x/week minimum (16 videos/month)</li>
+                            <li>Focus on transformation + testimonial content</li>
+                            <li>Respond to every comment within 1 hour</li>
+                            <li>Cross-post to Instagram Reels</li>
+                            <li>Need ~100K monthly views</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>🎯 Hit $2,000/Month (Tier 3)</h4>
+                        <p><strong>Math:</strong> 27 sales/month at $75 AOV</p>
+                        <p><strong>Strategy:</strong></p>
+                        <ul>
+                            <li>Post daily (30 videos/month)</li>
+                            <li>Batch film weekly</li>
+                            <li>Create exclusive discount code</li>
+                            <li>Start building email list</li>
+                            <li>Host Live shopping events</li>
+                            <li>Need ~400K monthly views</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>🎯 Hit $5,000/Month (Tier 4 - Elite)</h4>
+                        <p><strong>Math:</strong> 67 sales/month at $75 AOV</p>
+                        <p><strong>Strategy:</strong></p>
+                        <ul>
+                            <li>Post 2-3x/daily</li>
+                            <li>Multi-channel presence (TikTok, IG, YouTube Shorts)</li>
+                            <li>Build email/SMS list</li>
+                            <li>Run paid traffic to best content</li>
+                            <li>Weekly Live try-on sessions</li>
+                            <li>Create series/recurring content</li>
+                            <li>Need ~1M monthly views</li>
+                        </ul>
+                    </div>
+
+                    <h4>Multi-Platform Repurposing:</h4>
+                    <ol>
+                        <li>Post to TikTok first (test)</li>
+                        <li>If it performs well (>5K views), cross-post to IG within 24 hours</li>
+                        <li>Post to YouTube Shorts 48 hours later</li>
+                        <li>Pin to Pinterest after 1 week</li>
+                    </ol>
+                </div>
+            </div>
+
+            <button class="collapsible">Module 6: Compliance & Best Practices</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <div class="alert alert-danger">
+                        <strong>⚠️ FTC DISCLOSURE REQUIREMENTS (CRITICAL)</strong>
+                        <p>You MUST disclose affiliate relationships in every video</p>
+                    </div>
+
+                    <h4>Proper Disclosure Examples:</h4>
+                    <ul>
+                        <li>In video (text overlay): "Paid partnership with Tissini" or "#TissiniPartner"</li>
+                        <li>In caption: "#ad #affiliate #TissiniPartner"</li>
+                        <li>Verbal: "I'm a Tissini affiliate and earn commission"</li>
+                    </ul>
+
+                    <h4>Where to Disclose:</h4>
+                    <ul>
+                        <li>Beginning of video (not buried at end)</li>
+                        <li>Video description</li>
+                        <li>Pinned comment</li>
+                    </ul>
+
+                    <div class="card">
+                        <h4>✅ DO:</h4>
+                        <ul>
+                            <li>Be honest in reviews</li>
+                            <li>Show real results</li>
+                            <li>Disclose partnership clearly</li>
+                            <li>Give accurate sizing information</li>
+                            <li>Respect brand guidelines</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h4>❌ DON'T:</h4>
+                        <ul>
+                            <li>Make medical claims</li>
+                            <li>Share fake testimonials</li>
+                            <li>Promise specific body transformations</li>
+                            <li>Pressure or guilt viewers into buying</li>
+                            <li>Hide affiliate relationship</li>
+                        </ul>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <strong>Penalties for Non-Compliance:</strong> FTC fines up to $43,792 per violation, damage to brand reputation, potential lawsuits
+                    </div>
+                </div>
+            </div>
+
+            <h3>4-Week Action Plan</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>Week 1: Setup</h4>
+                    <ul class="checklist">
+                        <li>Complete all training modules</li>
+                        <li>Review product catalog</li>
+                        <li>Set up tracking spreadsheet</li>
+                        <li>Optimize TikTok profile</li>
+                        <li>Test affiliate link works</li>
+                        <li>Join support group</li>
+                        <li>Plan first 7 videos</li>
+                    </ul>
+                </div>
+                <div class="timeline-item">
+                    <h4>Week 2: Content Creation</h4>
+                    <ul class="checklist">
+                        <li>Batch film 14 videos (2 weeks of content)</li>
+                        <li>Schedule posting times</li>
+                        <li>Write captions + hashtags</li>
+                        <li>Create pinned comments with links</li>
+                        <li>Prepare engagement responses</li>
+                    </ul>
+                </div>
+                <div class="timeline-item">
+                    <h4>Week 3: Launch</h4>
+                    <ul class="checklist">
+                        <li>Start posting schedule</li>
+                        <li>Respond to all comments</li>
+                        <li>Track performance daily</li>
+                        <li>Adjust based on what works</li>
+                        <li>DM interested buyers</li>
+                    </ul>
+                </div>
+                <div class="timeline-item">
+                    <h4>Week 4: Optimization</h4>
+                    <ul class="checklist">
+                        <li>Review analytics</li>
+                        <li>Double down on best content</li>
+                        <li>Test new formats</li>
+                        <li>Aim for first sales</li>
+                        <li>Qualify for weekly support ($50+)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENT STRATEGY TAB -->
+        <div id="content" class="tab-content">
+            <h2>Content Strategy</h2>
+            <p>7 high-converting content types with scripts and examples</p>
+
+            <h3>Content Mix Breakdown</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 30%;">Transformation 30%</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 25%;">Styling 25%</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 20%;">Testimonial 20%</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 15%;">Education 15%</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 5%;">Trending 5%</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 3%;">Lifestyle 3%</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 2%;">CTA/Sales 2%</div>
+            </div>
+
+            <button class="collapsible">1. TRANSFORMATION/BEFORE-AFTER (30% of content)</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <div class="card card-highlight">
+                        <h4>Why It Works:</h4>
+                        <p>Visual proof sells jeans better than anything. Women want to see themselves in the product.</p>
+                    </div>
+
+                    <h4>Video Script A: "The Jean That Changed Everything"</h4>
+                    <div class="video-script">
+[0-2s] Hook: "I stopped wearing jeans for 2 years until I found THESE"
+[3-5s] Problem: Show old jeans that don't fit right
+[6-8s] Solution: Quick change to Tissini jean
+[9-12s] Result: Show fit from all angles, confidence boost
+[13-15s] CTA: "Link in bio to get yours! 💙 #tissini"
+                    </div>
+
+                    <h4>Video Script B: "Same Girl, Different Jean"</h4>
+                    <div class="video-script">
+[0-2s] Hook: "POV: You finally find jeans that fit YOUR body"
+[3-10s] Split screen: Regular jeans vs Tissini
+[11-13s] Highlight: Show booty lift, waist fit, leg shape
+[14-15s] CTA: "Which would you choose? Link in bio!"
+                    </div>
+
+                    <h4>Production Tips:</h4>
+                    <ul>
+                        <li>Use trending transition sounds</li>
+                        <li>Natural lighting is KEY</li>
+                        <li>Show multiple angles (front, side, back)</li>
+                        <li>Real reactions (not overly produced)</li>
+                        <li>Text overlay with jean name</li>
+                    </ul>
+
+                    <h4>Engagement Hooks:</h4>
+                    <ul>
+                        <li>"Comment your size and I'll help you pick!"</li>
+                        <li>"Tag someone who needs these jeans"</li>
+                        <li>"Which color should I try next?"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="collapsible">2. STYLING/HOW-TO CONTENT (25% of content)</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <div class="card card-highlight">
+                        <h4>Why It Works:</h4>
+                        <p>Shows versatility, gives buying confidence. Viewers can envision multiple ways to wear.</p>
+                    </div>
+
+                    <h4>Video Script C: "One Jean, Three Looks"</h4>
+                    <div class="video-script">
+[0-2s] Hook: "You need these jeans for work, weekend, AND date night"
+[3-6s] Look 1: Casual (sneakers, t-shirt)
+[7-10s] Look 2: Work (blazer, heels)
+[11-14s] Look 3: Night out (crop top, jewelry)
+[15s] CTA: "Jean Ilana - link in bio! 👖"
+                    </div>
+
+                    <h4>Video Script D: "Find Your Perfect Fit"</h4>
+                    <div class="video-script">
+[0-2s] Hook: "Here's how to know which Tissini jean is made for YOU"
+[3-5s] Curvy? → Jean Aymara (built-in faja)
+[6-8s] Petite? → Jean Zulima (perfect length)
+[9-11s] Athletic? → Jean Danica (stretch comfort)
+[12-15s] CTA: "Comment your body type - I'll help you choose!"
+                    </div>
+
+                    <h4>Format Ideas:</h4>
+                    <ul>
+                        <li>"3 ways to style one jean"</li>
+                        <li>"Casual to classy in 60 seconds"</li>
+                        <li>"How to find your perfect fit"</li>
+                        <li>"Jeans for your body type"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="collapsible">3. TESTIMONIAL/REVIEW CONTENT (20% of content)</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <div class="card card-highlight">
+                        <h4>Why It Works:</h4>
+                        <p>Social proof is the #1 conversion driver. Real stories build trust.</p>
+                    </div>
+
+                    <h4>Video Script E: "Honest Review"</h4>
+                    <div class="video-script">
+[0-2s] Hook: "I've tried 20+ jean brands - here's why Tissini won"
+[3-7s] What I love: Fit, comfort, price
+[8-11s] Real talk: Sizing tip or minor con (builds trust)
+[12-14s] Verdict: "100% recommend for [body type]"
+[15s] CTA: "Get $X off with my link in bio!"
+                    </div>
+
+                    <h4>Video Script F: "Customer Reactions"</h4>
+                    <div class="video-script">
+[0-2s] Hook: "My customers can't stop sending me these messages"
+[3-13s] Show real DMs/texts (blur names):
+         - "OMG these jeans are PERFECT"
+         - "I bought 3 more pairs!"
+         - "Best jeans I've ever owned"
+[14-15s] CTA: "See why everyone loves them - link in bio"
+                    </div>
+
+                    <h4>Format Ideas:</h4>
+                    <ul>
+                        <li>Your personal review</li>
+                        <li>Customer testimonials (with permission)</li>
+                        <li>Unboxing + first impressions</li>
+                        <li>"One week later" update</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="collapsible">4. EDUCATION/PROBLEM-SOLVING (15% of content)</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <div class="card card-highlight">
+                        <h4>Why It Works:</h4>
+                        <p>Positions you as expert, builds trust, answers objections before they're asked.</p>
+                    </div>
+
+                    <h4>Video Script G: "Why Your Jeans Don't Fit"</h4>
+                    <div class="video-script">
+[0-2s] Hook: "If your jeans do THIS, they don't actually fit you"
+[3-5s] Problem 1: Gap at waist
+[6-8s] Problem 2: Awkward crotch fit
+[9-11s] Problem 3: No shape definition
+[12-14s] Solution: "Tissini jeans are engineered for real women's bodies"
+[15s] CTA: "Try them yourself - link in bio"
+                    </div>
+
+                    <h4>Video Script H: "How to Order the Right Size"</h4>
+                    <div class="video-script">
+[0-2s] Hook: "Stop buying the wrong size jeans online"
+[3-6s] Step 1: Measure your waist properly (show how)
+[7-10s] Step 2: Check the size chart (show chart)
+[11-13s] Step 3: Read reviews for fit tips
+[14-15s] CTA: "I can help you find your size - comment below!"
+                    </div>
+
+                    <h4>Topic Ideas:</h4>
+                    <ul>
+                        <li>"5 signs your jeans don't fit"</li>
+                        <li>"How to measure for jeans online"</li>
+                        <li>"Jean care tips to make them last"</li>
+                        <li>"Understanding jean technologies"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="collapsible">5. TRENDING/VIRAL CONTENT (5% of content)</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <div class="card card-highlight">
+                        <h4>Why It Works:</h4>
+                        <p>Algorithm boost = more eyes on your content. Rides wave of existing viral trends.</p>
+                    </div>
+
+                    <h4>Video Script I: "Get Ready With Me"</h4>
+                    <div class="video-script">
+Use trending GRWM sound
+[0-2s] Start in robe/loungewear
+[3-10s] Show getting dressed process
+[11-13s] Final look reveal in Tissini jeans
+[14-15s] "Jeans: Tissini Jean Emmie - link in bio!"
+                    </div>
+
+                    <h4>Video Script J: "This or That"</h4>
+                    <div class="video-script">
+Use trending "this or that" sound
+[0-2s] Show two jean options
+[3-6s] Quick change to option 1
+[7-10s] Quick change to option 2
+[11-13s] "Winner: Tissini Jean Ilana 🏆"
+[14-15s] Comment: "Which would you pick?"
+                    </div>
+
+                    <div class="alert alert-info">
+                        <strong>💡 Pro Tip:</strong> Act FAST on trends (24-48 hour window). Use exact trending audio (not remix). Don't force it if it doesn't fit your brand.
+                    </div>
+                </div>
+            </div>
+
+            <button class="collapsible">6. BEHIND-THE-SCENES/LIFESTYLE (3% of content)</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <div class="card card-highlight">
+                        <h4>Why It Works:</h4>
+                        <p>Builds connection and authenticity. Shows the human behind the content.</p>
+                    </div>
+
+                    <h4>Video Script K: "Affiliate Life"</h4>
+                    <div class="video-script">
+[0-2s] Hook: "How I make money from my couch"
+[3-8s] Show process: creating content, posting, checking analytics
+[9-12s] Show real earnings/commission dashboard
+[13-15s] CTA: "You can do this too - link in bio to learn more"
+                    </div>
+
+                    <h4>Format Ideas:</h4>
+                    <ul>
+                        <li>"Day in the life of an affiliate"</li>
+                        <li>Unboxing new styles</li>
+                        <li>Commission check reveals</li>
+                        <li>Behind-the-scenes filming</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="collapsible">7. CALL-TO-ACTION/SALES CONTENT (2% of content)</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <div class="card card-highlight">
+                        <h4>Why It Works:</h4>
+                        <p>Direct conversion focus for warmed audience. Creates urgency.</p>
+                    </div>
+
+                    <h4>Video Script L: "New Arrival Alert"</h4>
+                    <div class="video-script">
+[0-2s] Hook: "NEW Tissini just dropped and it's 🔥"
+[3-10s] Show the new jean from all angles
+[11-13s] "Only available through my link"
+[14-15s] CTA: "Link in bio - limited stock!"
+                    </div>
+
+                    <h4>Format Ideas:</h4>
+                    <ul>
+                        <li>"Last chance" urgency</li>
+                        <li>"New arrivals just dropped"</li>
+                        <li>"My followers' favorite jeans"</li>
+                        <li>Limited time offers</li>
+                    </ul>
+
+                    <div class="alert alert-warning">
+                        <strong>⚠️ Use sparingly:</strong> Too much direct selling can turn off your audience. Use only 2% of the time.
+                    </div>
+                </div>
+            </div>
+
+            <h3>Weekly Content Calendar</h3>
+            <table>
+                <tr>
+                    <th>Day</th>
+                    <th>Content Type</th>
+                    <th>Focus</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>Monday</td>
+                    <td>Transformation</td>
+                    <td>Start week strong</td>
+                    <td>Before/after comparison</td>
+                </tr>
+                <tr>
+                    <td>Tuesday</td>
+                    <td>Education</td>
+                    <td>Build trust</td>
+                    <td>"How to find your size"</td>
+                </tr>
+                <tr>
+                    <td>Wednesday</td>
+                    <td>Styling</td>
+                    <td>Show versatility</td>
+                    <td>"3 ways to wear it"</td>
+                </tr>
+                <tr>
+                    <td>Thursday</td>
+                    <td>Testimonial</td>
+                    <td>Social proof</td>
+                    <td>Customer review</td>
+                </tr>
+                <tr>
+                    <td>Friday</td>
+                    <td>Trending</td>
+                    <td>Algorithm boost</td>
+                    <td>Trending sound + jeans</td>
+                </tr>
+                <tr>
+                    <td>Saturday</td>
+                    <td>Lifestyle</td>
+                    <td>Connection</td>
+                    <td>"Weekend in Tissini"</td>
+                </tr>
+                <tr>
+                    <td>Sunday</td>
+                    <td>CTA/Sales</td>
+                    <td>Direct conversion</td>
+                    <td>"This jean sold out 3x"</td>
+                </tr>
+            </table>
+
+            <h3>Monthly Theme Ideas (Aligned with Best Sellers)</h3>
+            <div class="card">
+                <ul>
+                    <li><strong>January:</strong> "New Year, New Jeans" - Feature Jean Zulima</li>
+                    <li><strong>February:</strong> "Love Your Body" - All body types</li>
+                    <li><strong>March:</strong> "Spring Style" - Lighter washes</li>
+                    <li><strong>August:</strong> "Summer Confidence" - Feature Jean Ilana (bestseller! 275 units)</li>
+                    <li><strong>October:</strong> "Fall Favorites" - Feature Jean Aymara (with faja)</li>
+                    <li><strong>December:</strong> "Holiday Ready" - Feature Jean Emmie</li>
+                </ul>
+            </div>
+
+            <h3>Production Tips</h3>
+            <div class="card">
+                <h4>Batch Filming Strategy:</h4>
+                <ul>
+                    <li>Set aside 2-3 hours once/week</li>
+                    <li>Film 7-14 videos in one session</li>
+                    <li>Use same lighting setup</li>
+                    <li>Multiple outfit changes ready</li>
+                    <li>Prepare props (measuring tape, comparison jeans)</li>
+                </ul>
+
+                <h4>Equipment Needed:</h4>
+                <ul>
+                    <li>Smartphone with good camera</li>
+                    <li>Tripod ($15-30)</li>
+                    <li>Ring light (optional but recommended)</li>
+                    <li>Jean styles you're promoting</li>
+                </ul>
+
+                <h4>Editing Tips:</h4>
+                <ul>
+                    <li>Use CapCut or TikTok native editor</li>
+                    <li>Keep cuts quick and dynamic</li>
+                    <li>Add text overlays for key points</li>
+                    <li>Use trending sounds from TikTok library</li>
+                    <li>Export in highest quality</li>
+                </ul>
+
+                <h4>Optimal Posting Times:</h4>
+                <ul>
+                    <li>Peak engagement: 7-9am, 12-1pm, 7-11pm</li>
+                    <li>Test different times for YOUR audience</li>
+                    <li>Be consistent with schedule</li>
+                    <li>Don't post more than 3x/day</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- TRACKING TAB -->
+        <div id="tracking" class="tab-content">
+            <h2>Attribution & Tracking System</h2>
+
+            <h3>Technical Stack</h3>
+            <table>
+                <tr>
+                    <th>Tool</th>
+                    <th>Purpose</th>
+                    <th>Cost</th>
+                </tr>
+                <tr>
+                    <td>TikTok for Business</td>
+                    <td>Native TikTok tracking pixel</td>
+                    <td>Free</td>
+                </tr>
+                <tr>
+                    <td>Northbeam</td>
+                    <td>Multi-touch attribution & analytics</td>
+                    <td>$500-1,000/mo</td>
+                </tr>
+                <tr>
+                    <td>Refersion</td>
+                    <td>Affiliate platform - links, dashboards, payments</td>
+                    <td>$89-249/mo</td>
+                </tr>
+            </table>
+
+            <h3>Integration Flow</h3>
+            <div class="card card-highlight">
+                <div style="padding: 20px; background: #f0f0f0; border-radius: 8px; font-family: monospace;">
+                    TikTok Content<br>
+                    &nbsp;&nbsp;↓ TikTok Pixel Tracking<br>
+                    Affiliate Link Click<br>
+                    &nbsp;&nbsp;↓ Cookie Set (30 days)<br>
+                    Purchase on Website<br>
+                    &nbsp;&nbsp;↓ Northbeam Attribution<br>
+                    Commission Credited<br>
+                    &nbsp;&nbsp;↓<br>
+                    Affiliate Dashboard Update
+                </div>
+            </div>
+
+            <button class="collapsible">Phase 1: TikTok Pixel Installation (Week 1)</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Setup Steps:</h4>
+                    <ol>
+                        <li>Go to TikTok Ads Manager</li>
+                        <li>Navigate to Assets → Event</li>
+                        <li>Create TikTok Pixel</li>
+                        <li>Install pixel code in website header (via GTM or direct)</li>
+                        <li>Set up standard events:
+                            <ul>
+                                <li>ViewContent (product page views)</li>
+                                <li>AddToCart</li>
+                                <li>InitiateCheckout</li>
+                                <li>CompletePayment</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <div class="alert alert-info">
+                        <strong>Testing:</strong> Use TikTok Pixel Helper Chrome extension to verify all events fire correctly.
+                    </div>
+                </div>
+            </div>
+
+            <button class="collapsible">Phase 2: Refersion Setup (Week 1-2)</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Why Refersion:</h4>
+                    <ul>
+                        <li>Fashion industry standard</li>
+                        <li>Easy TikTok integration</li>
+                        <li>Automatic commission tracking</li>
+                        <li>Affiliate dashboard included</li>
+                        <li>Shopify/WooCommerce integration</li>
+                    </ul>
+
+                    <h4>Configuration:</h4>
+                    <ol>
+                        <li>Create Refersion account</li>
+                        <li>Connect to Tissini e-commerce platform</li>
+                        <li>Set commission tiers (15%, 20%, 25%, 30%)</li>
+                        <li>Configure payout settings (monthly, $50 minimum)</li>
+                        <li>Create affiliate signup form</li>
+                        <li>Design affiliate dashboard</li>
+                    </ol>
+
+                    <div class="card">
+                        <h4>Affiliate Link Structure:</h4>
+                        <code>tissini.com/products/jean-ilana?ref=AFFILIATENAME</code>
+                    </div>
+                </div>
+            </div>
+
+            <button class="collapsible">Phase 3: Northbeam Integration (Week 2-3)</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>What Northbeam Does:</h4>
+                    <ul>
+                        <li>Tracks customer journey across multiple touchpoints</li>
+                        <li>Attributes sales to correct affiliate (even if multi-touch)</li>
+                        <li>Provides deep analytics on what's working</li>
+                        <li>Integrates with TikTok, Meta, and your website</li>
+                    </ul>
+
+                    <h4>Setup Steps:</h4>
+                    <ol>
+                        <li>Install Northbeam tracking script</li>
+                        <li>Connect data sources (TikTok, Shopify, Refersion, Meta)</li>
+                        <li>Set attribution model (recommended: last-click for affiliates)</li>
+                        <li>Create custom dashboards for affiliate performance</li>
+                    </ol>
+
+                    <h4>Key Metrics Northbeam Tracks:</h4>
+                    <ul>
+                        <li>First touch: How customer first discovered Tissini</li>
+                        <li>Mid-funnel touches: Other content they engaged with</li>
+                        <li>Last click: Final affiliate link that drove sale</li>
+                        <li>CAC (Customer Acquisition Cost) by affiliate</li>
+                        <li>LTV (Lifetime Value) of affiliate-driven customers</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Attribution Logic</h3>
+            <div class="card">
+                <h4>Scenario 1: Simple Path</h4>
+                <ol>
+                    <li>User sees Affiliate A's TikTok video</li>
+                    <li>Clicks link in bio (tracked by Affiliate A's ref code)</li>
+                    <li>Purchases within 30-day cookie window</li>
+                    <li>Sale attributed to Affiliate A</li>
+                    <li>Commission automatically calculated</li>
+                </ol>
+            </div>
+
+            <div class="card">
+                <h4>Scenario 2: Multi-Touch</h4>
+                <ol>
+                    <li>User sees Affiliate A's video, doesn't click</li>
+                    <li>Week later, sees Affiliate B's video, clicks link</li>
+                    <li>Visits site, doesn't buy</li>
+                    <li>Week later, clicks Affiliate B's link again and buys</li>
+                    <li>Sale attributed to Affiliate B (last click)</li>
+                    <li>Northbeam shows full journey for analysis</li>
+                </ol>
+            </div>
+
+            <div class="alert alert-success">
+                <strong>Cookie Window:</strong> 30 days (industry standard). If customer clicks affiliate link, affiliate gets credit for any purchase within 30 days.
+            </div>
+
+            <h3>Affiliate Dashboard Features</h3>
+            <table>
+                <tr>
+                    <th>Tab</th>
+                    <th>What Affiliates See</th>
+                </tr>
+                <tr>
+                    <td>Performance</td>
+                    <td>Total clicks, conversion rate, sales generated, commission earned (pending & paid)</td>
+                </tr>
+                <tr>
+                    <td>Links</td>
+                    <td>Unique affiliate URL, product-specific links, discount codes</td>
+                </tr>
+                <tr>
+                    <td>Marketing Materials</td>
+                    <td>Product photos, videos, graphics, templates, best-performing content examples</td>
+                </tr>
+                <tr>
+                    <td>Payments</td>
+                    <td>Payout history, next payout date, tax forms (W9/1099), payment method</td>
+                </tr>
+            </table>
+
+            <h3>Tracking Spreadsheet Template</h3>
+            <div class="card">
+                <h4>Tab 1: Affiliate Directory</h4>
+                <table>
+                    <tr>
+                        <th>Affiliate Name</th>
+                        <th>TikTok Handle</th>
+                        <th>Join Date</th>
+                        <th>Tier</th>
+                        <th>Total Sales</th>
+                        <th>Commission Earned</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td>Jessica M</td>
+                        <td>@jessicafashion</td>
+                        <td>1/15/26</td>
+                        <td>2</td>
+                        <td>$3,240</td>
+                        <td>$648</td>
+                        <td>Active</td>
+                    </tr>
+                </table>
+
+                <h4>Tab 2: Weekly Performance</h4>
+                <table>
+                    <tr>
+                        <th>Week</th>
+                        <th>Total Sales</th>
+                        <th>Commission</th>
+                        <th>New Affiliates</th>
+                        <th>Active Affiliates</th>
+                    </tr>
+                    <tr>
+                        <td>1/12</td>
+                        <td>$8,450</td>
+                        <td>$1,521</td>
+                        <td>12</td>
+                        <td>45</td>
+                    </tr>
+                </table>
+
+                <h4>Tab 3: Product Performance</h4>
+                <table>
+                    <tr>
+                        <th>Jean Style</th>
+                        <th>Units Sold</th>
+                        <th>Revenue</th>
+                        <th>Top Affiliate</th>
+                        <th>Best Content</th>
+                    </tr>
+                    <tr>
+                        <td>Jean Ilana</td>
+                        <td>47</td>
+                        <td>$3,525</td>
+                        <td>@jessicafashion</td>
+                        <td>Before/After</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- RECRUITMENT TAB -->
+        <div id="recruitment" class="tab-content">
+            <h2>Affiliate Recruitment Strategy</h2>
+
+            <h3>Target Affiliate Profiles</h3>
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <h3 style="color: white; margin-top: 0;">Micro-Influencers</h3>
+                    <div class="metric-value">2K-20K</div>
+                    <div class="metric-label">Followers - PRIMARY TARGET</div>
+                    <p style="margin-top: 10px; font-size: 0.9em;">High engagement, authentic content, eager to monetize</p>
+                </div>
+                <div class="metric-card">
+                    <h3 style="color: white; margin-top: 0;">Nano-Influencers</h3>
+                    <div class="metric-value">500-2K</div>
+                    <div class="metric-label">Followers - VOLUME TARGET</div>
+                    <p style="margin-top: 10px; font-size: 0.9em;">Everyday women, strong local ties, personal approach</p>
+                </div>
+                <div class="metric-card">
+                    <h3 style="color: white; margin-top: 0;">Fashion Enthusiasts</h3>
+                    <div class="metric-value">0-500</div>
+                    <div class="metric-label">Followers - GROWTH TARGET</div>
+                    <p style="margin-top: 10px; font-size: 0.9em;">Want to build presence, motivated by income</p>
+                </div>
+            </div>
+
+            <button class="collapsible">Method 1: Direct Outreach to TikTokers</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Identifying Target Creators:</h4>
+                    <ol>
+                        <li>Search TikTok hashtags: #fashiontiktok, #jeansreview, #outfitoftheday, #affordablefashion, #bodypositivity</li>
+                        <li>Filter by: 1K-50K followers, posted in last 30 days, engagement >3%, target markets</li>
+                    </ol>
+
+                    <h4>Outreach Template (DM):</h4>
+                    <div class="video-script">
+Hey [Name]! 👋
+
+Love your content, especially your [specific video/post]!
+
+I work with Tissini Jeans and we're launching an affiliate program for creators like you. Basically:
+
+✨ Promote jeans your audience will love
+💰 Earn 15-30% commission per sale (avg $75 order = $11-22 per sale)
+📦 No inventory to buy
+🎥 We provide training + content support
+
+Would you be interested in learning more? No pressure!
+
+[Your Name]
+Tissini Affiliate Program
+                    </div>
+
+                    <div class="card">
+                        <h4>Expected Results:</h4>
+                        <p>Outreach to 100 creators = 30-40 responses = 15-20 signups</p>
+                        <p><strong>Goal:</strong> Recruit 50 affiliates in Month 1</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="collapsible">Method 2: Application Landing Page</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Landing Page URL:</h4>
+                    <code>tissini.com/affiliate</code>
+
+                    <h4>Page Structure:</h4>
+                    <div class="card">
+                        <h4>Header:</h4>
+                        <p style="font-size: 1.5em; color: #667eea;">"Make Money Promoting Jeans Women Love 👖💰"</p>
+
+                        <h4>Subhead:</h4>
+                        <p>"Join 100+ content creators earning commission on every sale. No inventory. No risk. Just create content and get paid."</p>
+
+                        <h4>Key Benefits:</h4>
+                        <ul>
+                            <li>✅ Earn 15-30% commission ($11-22 per sale)</li>
+                            <li>✅ Free training + weekly support calls</li>
+                            <li>✅ Content templates & resources provided</li>
+                            <li>✅ Track everything in real-time dashboard</li>
+                            <li>✅ Get paid monthly via PayPal</li>
+                        </ul>
+
+                        <h4>Social Proof:</h4>
+                        <ul>
+                            <li>Testimonials from early affiliates</li>
+                            <li>"Jessica made $247 her first month!"</li>
+                            <li>Commission screenshots (with permission)</li>
+                        </ul>
+
+                        <h4>Application Form Fields:</h4>
+                        <ul>
+                            <li>Full name</li>
+                            <li>Email</li>
+                            <li>TikTok handle</li>
+                            <li>Instagram handle (optional)</li>
+                            <li>Follower count</li>
+                            <li>Why you want to join (100 words)</li>
+                            <li>Agree to terms</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <button class="collapsible">Method 3: Convert Existing Emprendedoras ⭐</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <div class="alert alert-success">
+                        <strong>BIG OPPORTUNITY:</strong> Your 200 emprendedoras are ideal first affiliates!
+                    </div>
+
+                    <h4>Why Current Emprendedoras Are Perfect:</h4>
+                    <ul>
+                        <li>Already know the product</li>
+                        <li>Have existing customers</li>
+                        <li>Trusted in their communities</li>
+                        <li>Motivated by income</li>
+                        <li>Some may already use social media</li>
+                    </ul>
+
+                    <h4>Recruitment Email (Spanish):</h4>
+                    <div class="video-script">
+Subject: Nueva Oportunidad: Gana más sin comprar inventario 💰
+
+Hola [Name],
+
+Tenemos una nueva forma de ganar dinero con Tissini - ¡sin tener que comprar inventario!
+
+Estamos lanzando un programa de afiliados en TikTok:
+
+🎥 Crea videos mostrando los jeans
+💰 Gana comisión en cada venta (15-30%)
+📦 NO necesitas comprar ni almacenar jeans
+📱 Todo se maneja por TikTok y tu link especial
+
+Esto NO reemplaza tu negocio actual - es una forma ADICIONAL de ganar dinero.
+
+Ejemplo: Si vendes $500 en un mes, ganas $75-150 en comisiones, sin inversión inicial.
+
+¿Te interesa? Responde este email o únete aquí: [link]
+
+Incluye:
+- Capacitación gratis
+- Soporte semanal
+- Plantillas de contenido
+
+[Your Name]
+Equipo Tissini
+                    </div>
+
+                    <div class="card card-highlight">
+                        <h4>Expected Conversion:</h4>
+                        <ul>
+                            <li>200 emprendedoras contacted</li>
+                            <li>50-80 interested (25-40%)</li>
+                            <li>30-50 actually join and post (15-25%)</li>
+                        </ul>
+                        <p><strong>Advantage:</strong> They already have product knowledge!</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="collapsible">Method 4: Create Recruitment Content</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Make TikTok Videos About the Opportunity:</h4>
+                    <div class="video-script">
+[0-2s] Hook: "I make $1,500/month from my phone - here's how"
+[3-8s] Show: TikTok content creation process
+[9-12s] Show: Commission dashboard/earnings
+[13-15s] CTA: "Link in bio to join as a Tissini affiliate!"
+                    </div>
+
+                    <h4>Why This Works:</h4>
+                    <ul>
+                        <li>Attracts people searching for "how to make money on TikTok"</li>
+                        <li>Shows real results</li>
+                        <li>Passive recruitment (they come to you)</li>
+                        <li>Filters for motivated people</li>
+                    </ul>
+
+                    <h4>Hashtags:</h4>
+                    <code>#affiliatemarketing #makemoneyontiktok #sidehustle #workfromhome #contentcreator</code>
+                </div>
+            </div>
+
+            <h3>Recruitment Timeline</h3>
+            <table>
+                <tr>
+                    <th>Period</th>
+                    <th>Goal</th>
+                    <th>Methods</th>
+                </tr>
+                <tr>
+                    <td>Month 1</td>
+                    <td>50 Affiliates</td>
+                    <td>Direct outreach (20), Emprendedoras (15), Landing page (10), Organic (5)</td>
+                </tr>
+                <tr>
+                    <td>Month 2-3</td>
+                    <td>50 More (100 Total)</td>
+                    <td>Referrals (20), Outreach (15), Emprendedoras (10), Organic (5)</td>
+                </tr>
+                <tr>
+                    <td>Month 4-6</td>
+                    <td>50 More (150 Total)</td>
+                    <td>Word of mouth, affiliate referrals, reputation building, organic growth</td>
+                </tr>
+            </table>
+
+            <h3>Vetting Process</h3>
+            <div class="card">
+                <h4>✅ Approval Criteria:</h4>
+                <ul>
+                    <li>Real person (not bot/fake account)</li>
+                    <li>Consistent posting history</li>
+                    <li>Authentic engagement (real comments)</li>
+                    <li>Engagement rate >2%</li>
+                    <li>Content aligns with Tissini values</li>
+                    <li>No inappropriate content</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h4>❌ Red Flags:</h4>
+                <ul>
+                    <li>Fake followers/engagement</li>
+                    <li>Inappropriate or offensive content</li>
+                    <li>Promotes direct competitors</li>
+                    <li>History of scams/MLM schemes</li>
+                    <li>No recent activity</li>
+                </ul>
+            </div>
+
+            <h3>Onboarding Email Sequence</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>Day 1: Welcome Email</h4>
+                    <p>Access dashboard, get affiliate link, complete training, join support group</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Day 3: Training Reminder</h4>
+                    <p>Reminder to complete 30-minute affiliate training</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Day 7: Check-In</h4>
+                    <p>How's your first week? Have you posted? Need help?</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Day 14: First Sale Support</h4>
+                    <p>Tips to get your first sale if they haven't sold yet</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- WEEKLY SUPPORT TAB -->
+        <div id="support" class="tab-content">
+            <h2>Weekly Support Program</h2>
+
+            <div class="alert alert-info">
+                <strong>Eligibility:</strong> Affiliates who generate $50+ in sales qualify for weekly support.
+            </div>
+
+            <h3>Weekly Support Call Structure</h3>
+            <div class="card card-highlight">
+                <p><strong>When:</strong> Every Thursday 7:00 PM EST (1 hour)</p>
+                <p><strong>Where:</strong> Zoom (recorded for those who can't attend live)</p>
+                <p><strong>Who:</strong> Qualified affiliates ($50+ sales) + Tissini team</p>
+            </div>
+
+            <h4>Call Agenda:</h4>
+            <table>
+                <tr>
+                    <th>Time</th>
+                    <th>Topic</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>0-10 min</td>
+                    <td>Wins & Celebrations</td>
+                    <td>Spotlight top performer, success stories, commission earnings shoutouts</td>
+                </tr>
+                <tr>
+                    <td>10-25 min</td>
+                    <td>Strategy Session</td>
+                    <td>Content breakdown, current trends, product launches, seasonal strategy</td>
+                </tr>
+                <tr>
+                    <td>25-40 min</td>
+                    <td>Skill Building</td>
+                    <td>Weekly topic (see curriculum), screen shares, live critiques, Q&A</td>
+                </tr>
+                <tr>
+                    <td>40-55 min</td>
+                    <td>Open Q&A</td>
+                    <td>Affiliates ask questions, troubleshooting, profile reviews</td>
+                </tr>
+                <tr>
+                    <td>55-60 min</td>
+                    <td>Week Ahead</td>
+                    <td>Content challenges, new products, promotions, action items</td>
+                </tr>
+            </table>
+
+            <h3>8-Week Rotating Curriculum</h3>
+            <button class="collapsible">Week 1: Mastering Transformation Content</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <ul>
+                        <li>Anatomy of viral before/after</li>
+                        <li>Lighting & angles that sell</li>
+                        <li>Transition tips and tricks</li>
+                        <li>Music selection for transformation videos</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="collapsible">Week 2: Conversion Optimization</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <ul>
+                        <li>Writing CTAs that work</li>
+                        <li>Pin comment best practices</li>
+                        <li>Bio optimization</li>
+                        <li>Link placement strategies</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="collapsible">Week 3: Understanding Your Analytics</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <ul>
+                        <li>Reading TikTok analytics</li>
+                        <li>Which metrics matter most</li>
+                        <li>When to double down vs pivot</li>
+                        <li>Using Northbeam data</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="collapsible">Week 4: Advanced Content Strategies</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <ul>
+                        <li>Series content for repeat viewers</li>
+                        <li>Storytelling techniques</li>
+                        <li>Building parasocial relationships</li>
+                        <li>Content batching workflows</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="collapsible">Week 5: Engagement Hacking</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <ul>
+                        <li>Comment strategies that boost reach</li>
+                        <li>Creating engagement hooks</li>
+                        <li>Building community</li>
+                        <li>DM management for sales</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="collapsible">Week 6: Multi-Platform Expansion</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <ul>
+                        <li>Repurposing to Instagram Reels</li>
+                        <li>YouTube Shorts strategy</li>
+                        <li>Pinterest for evergreen traffic</li>
+                        <li>Email list building</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="collapsible">Week 7: Scaling Your Income</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <ul>
+                        <li>How to reach higher commission tiers</li>
+                        <li>Paid promotion strategies</li>
+                        <li>Collaboration opportunities</li>
+                        <li>Time management for scaling</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="collapsible">Week 8: Seasonal & Promotional Marketing</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <ul>
+                        <li>Planning around holidays</li>
+                        <li>Limited-time offer strategies</li>
+                        <li>Creating urgency without being pushy</li>
+                        <li>Event-based content calendar</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Private Support Community</h3>
+            <div class="card">
+                <h4>Platform:</h4>
+                <p>Private Telegram or WhatsApp Group</p>
+
+                <h4>Channel Structure:</h4>
+                <ul>
+                    <li><strong>#announcements:</strong> New products, promotions, program changes (Tissini only)</li>
+                    <li><strong>#wins:</strong> Sales screenshots, viral videos, milestones (affiliates share)</li>
+                    <li><strong>#questions:</strong> Help each other, quick answers, troubleshooting</li>
+                    <li><strong>#content-ideas:</strong> Video ideas, trending formats, inspiration</li>
+                    <li><strong>#resources:</strong> Training videos, product photos, templates</li>
+                </ul>
+
+                <h4>Community Rules:</h4>
+                <ul>
+                    <li>Be supportive and helpful</li>
+                    <li>No spam or self-promotion outside Tissini</li>
+                    <li>Respect confidentiality</li>
+                    <li>Share learnings generously</li>
+                    <li>No competitor promotion</li>
+                </ul>
+            </div>
+
+            <h3>Additional Support Resources</h3>
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <h3 style="color: white; margin-top: 0;">Content Review</h3>
+                    <p>Submit video before posting, get feedback within 24 hours</p>
+                </div>
+                <div class="metric-card">
+                    <h3 style="color: white; margin-top: 0;">1-on-1 Office Hours</h3>
+                    <p>Bi-weekly 15-minute slots for top performers or struggling affiliates</p>
+                </div>
+                <div class="metric-card">
+                    <h3 style="color: white; margin-top: 0;">Monthly Newsletter</h3>
+                    <p>Leaderboard, best content, upcoming promotions, tips & tricks</p>
+                </div>
+                <div class="metric-card">
+                    <h3 style="color: white; margin-top: 0;">Resource Library</h3>
+                    <p>Video tutorials, templates, product assets, customer testimonials</p>
+                </div>
+            </div>
+
+            <h3>Incentive Programs</h3>
+            <button class="collapsible">Monthly Competitions</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Top Seller Contest:</h4>
+                    <ul>
+                        <li><strong>Prize:</strong> $500 bonus + featured in Tissini content</li>
+                        <li><strong>Recognition:</strong> "Affiliate of the Month"</li>
+                        <li><strong>Reward:</strong> Bump to next tier temporarily</li>
+                    </ul>
+
+                    <h4>Most Creative Content:</h4>
+                    <ul>
+                        <li><strong>Prize:</strong> $200 bonus + product package</li>
+                        <li><strong>Winner:</strong> Community votes</li>
+                        <li><strong>Feature:</strong> Video on main Tissini account</li>
+                    </ul>
+
+                    <h4>Biggest Growth:</h4>
+                    <ul>
+                        <li><strong>Prize:</strong> $200 bonus</li>
+                        <li><strong>For:</strong> Affiliate who improved most vs previous month</li>
+                        <li><strong>Encourages:</strong> Continuous improvement</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="collapsible">Milestone Rewards</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <table>
+                        <tr>
+                            <th>Milestone</th>
+                            <th>Reward</th>
+                        </tr>
+                        <tr>
+                            <td>First Sale</td>
+                            <td>Congratulations email + $10 bonus</td>
+                        </tr>
+                        <tr>
+                            <td>10 Sales</td>
+                            <td>Branded merchandise (Tissini affiliate t-shirt)</td>
+                        </tr>
+                        <tr>
+                            <td>50 Sales</td>
+                            <td>$100 bonus + case study feature</td>
+                        </tr>
+                        <tr>
+                            <td>100 Sales</td>
+                            <td>$250 bonus + VIP status (early product access)</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <button class="collapsible">Referral Bonuses</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Recruit Another Affiliate:</h4>
+                    <ul>
+                        <li>Refer a friend who becomes affiliate</li>
+                        <li>When they make first $100 in sales</li>
+                        <li>You get: $25 bonus</li>
+                        <li>They get: $10 bonus</li>
+                    </ul>
+                    <p><strong>Builds network effect and quality referrals</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- IMPLEMENTATION TAB -->
+        <div id="implementation" class="tab-content">
+            <h2>Complete Implementation Roadmap</h2>
+
+            <h3>Pre-Launch (Weeks 1-4)</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>Week 1: Foundation</h4>
+                    <ul class="checklist">
+                        <li>Select and set up affiliate platform (Refersion)</li>
+                        <li>Install TikTok Pixel on website</li>
+                        <li>Set up Northbeam integration</li>
+                        <li>Create commission tier structure</li>
+                        <li>Draft affiliate terms & conditions</li>
+                        <li>Build application landing page</li>
+                        <li>Design affiliate dashboard</li>
+                    </ul>
+                </div>
+                <div class="timeline-item">
+                    <h4>Week 2: Content & Resources</h4>
+                    <ul class="checklist">
+                        <li>Create all training modules (Modules 1-6)</li>
+                        <li>Film product demo videos</li>
+                        <li>Photograph all jean styles (high-res)</li>
+                        <li>Write 50+ caption templates</li>
+                        <li>Develop resource library</li>
+                        <li>Create branded graphics/templates</li>
+                        <li>Set up tracking spreadsheets</li>
+                    </ul>
+                </div>
+                <div class="timeline-item">
+                    <h4>Week 3: Systems & Processes</h4>
+                    <ul class="checklist">
+                        <li>Build email automation sequences</li>
+                        <li>Set up payment processing (PayPal/bank)</li>
+                        <li>Create private community (Telegram/WhatsApp)</li>
+                        <li>Test affiliate link tracking end-to-end</li>
+                        <li>Set up weekly Zoom call recurring meeting</li>
+                        <li>Create affiliate agreement/contract</li>
+                        <li>Develop vetting checklist</li>
+                    </ul>
+                </div>
+                <div class="timeline-item">
+                    <h4>Week 4: Recruitment Preparation</h4>
+                    <ul class="checklist">
+                        <li>Identify 100 target TikTokers for outreach</li>
+                        <li>Write outreach scripts</li>
+                        <li>Create recruitment content (videos)</li>
+                        <li>Email current emprendedoras about opportunity</li>
+                        <li>Set up application review workflow</li>
+                        <li>Prepare welcome email sequences</li>
+                        <li>Train support team</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Launch Phase (Weeks 5-8)</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>Week 5: Soft Launch</h4>
+                    <ul class="checklist">
+                        <li>Invite 10-20 beta affiliates</li>
+                        <li>Onboard first cohort</li>
+                        <li>Host first training call</li>
+                        <li>Collect feedback on process</li>
+                        <li>Fix any technical issues</li>
+                        <li>Monitor first sales closely</li>
+                        <li>Iterate on training materials</li>
+                    </ul>
+                </div>
+                <div class="timeline-item">
+                    <h4>Week 6: Recruit Wave 1</h4>
+                    <ul class="checklist">
+                        <li>Begin direct outreach (Goal: 30 signups)</li>
+                        <li>Launch landing page</li>
+                        <li>Email emprendedoras (Goal: 15 signups)</li>
+                        <li>Approve/onboard daily</li>
+                        <li>Second weekly call</li>
+                        <li>Start monthly newsletter</li>
+                        <li>Feature early success stories</li>
+                    </ul>
+                </div>
+                <div class="timeline-item">
+                    <h4>Week 7: Recruit Wave 2</h4>
+                    <ul class="checklist">
+                        <li>Continue outreach (Goal: 25 more signups)</li>
+                        <li>Post recruitment content on Tissini account</li>
+                        <li>Third weekly call</li>
+                        <li>Launch first monthly competition</li>
+                        <li>Monitor affiliate performance</li>
+                        <li>Provide 1-on-1 support to struggling affiliates</li>
+                    </ul>
+                </div>
+                <div class="timeline-item">
+                    <h4>Week 8: Optimization</h4>
+                    <ul class="checklist">
+                        <li>Analyze first month data</li>
+                        <li>Identify top-performing content types</li>
+                        <li>Double down on what works</li>
+                        <li>Fourth weekly call</li>
+                        <li>First payout to affiliates ($50+ threshold)</li>
+                        <li>Collect feedback survey</li>
+                        <li>Adjust strategy based on learnings</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Growth Phase (Months 3-6)</h3>
+            <table>
+                <tr>
+                    <th>Month</th>
+                    <th>Goal</th>
+                    <th>Key Activities</th>
+                </tr>
+                <tr>
+                    <td>Month 3</td>
+                    <td>75 total affiliates</td>
+                    <td>Launch Tier 2 benefits, affiliate-of-the-month contest, scaling training</td>
+                </tr>
+                <tr>
+                    <td>Month 4</td>
+                    <td>100 total affiliates</td>
+                    <td>Implement referral program, create case studies, multi-platform expansion, paid ads testing</td>
+                </tr>
+                <tr>
+                    <td>Month 5</td>
+                    <td>125 total affiliates</td>
+                    <td>Introduce Tier 3 & 4 elite benefits, host virtual appreciation event, product co-creation</td>
+                </tr>
+                <tr>
+                    <td>Month 6</td>
+                    <td>150 total affiliates</td>
+                    <td>Full program review, optimize commission structure, plan next 6 months, hire additional support</td>
+                </tr>
+            </table>
+
+            <h3>Success Milestones</h3>
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <h3 style="color: white; margin-top: 0;">Month 1</h3>
+                    <ul style="text-align: left; font-size: 0.9em;">
+                        <li>30+ affiliates recruited</li>
+                        <li>$5,000 in affiliate sales</li>
+                        <li>10+ hit $50 threshold</li>
+                        <li>First call: 20+ attendees</li>
+                    </ul>
+                </div>
+                <div class="metric-card">
+                    <h3 style="color: white; margin-top: 0;">Month 3</h3>
+                    <ul style="text-align: left; font-size: 0.9em;">
+                        <li>75+ affiliates recruited</li>
+                        <li>$30,000+ monthly sales</li>
+                        <li>30+ qualified affiliates</li>
+                        <li>First Tier 2 affiliate</li>
+                    </ul>
+                </div>
+                <div class="metric-card">
+                    <h3 style="color: white; margin-top: 0;">Month 6</h3>
+                    <ul style="text-align: left; font-size: 0.9em;">
+                        <li>150+ affiliates recruited</li>
+                        <li>$100,000+ monthly sales</li>
+                        <li>60+ qualified affiliates</li>
+                        <li>10+ Tier 3 affiliates</li>
+                        <li>Positive ROI</li>
+                    </ul>
+                </div>
+                <div class="metric-card">
+                    <h3 style="color: white; margin-top: 0;">Month 12</h3>
+                    <ul style="text-align: left; font-size: 0.9em;">
+                        <li>250+ affiliates recruited</li>
+                        <li>$200,000+ monthly sales</li>
+                        <li>30% of total revenue</li>
+                        <li>5+ Tier 4 elites</li>
+                        <li>3x ROI</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Quick Start MVP (If You Want To Move Fast)</h3>
+            <div class="alert alert-warning">
+                <h4>Minimum Viable Version - Launch in 1 Week:</h4>
+                <ol>
+                    <li>Sign up for Refersion (simplest affiliate platform)</li>
+                    <li>Create basic affiliate agreement (use Refersion template)</li>
+                    <li>Recruit 10 trusted people (emprendedoras or friends)</li>
+                    <li>Give them affiliate links</li>
+                    <li>Create 1 training video (10 minutes)</li>
+                    <li>Start weekly WhatsApp group chat</li>
+                </ol>
+                <p><strong>Then iterate:</strong> Test & learn for 2-4 weeks, get feedback, fix issues, celebrate first sales, then scale by adding more affiliates (10 per week).</p>
+            </div>
+        </div>
+
+        <!-- LEGAL TAB -->
+        <div id="legal" class="tab-content">
+            <h2>Legal & Compliance</h2>
+
+            <h3>Required Legal Documents</h3>
+            <button class="collapsible">1. Affiliate Agreement</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Must Include:</h4>
+                    <ul>
+                        <li>Commission structure and payment terms</li>
+                        <li>Cookie duration (30 days recommended)</li>
+                        <li>Content guidelines and brand standards</li>
+                        <li>FTC disclosure requirements</li>
+                        <li>Prohibited activities (spam, false claims, etc.)</li>
+                        <li>Termination clauses</li>
+                        <li>Non-compete (optional)</li>
+                        <li>Intellectual property usage rights</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="collapsible">2. Terms & Conditions</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <ul>
+                        <li>Program eligibility</li>
+                        <li>How tracking works</li>
+                        <li>Return/refund policy impact on commissions</li>
+                        <li>Dispute resolution</li>
+                        <li>Data privacy (GDPR/CCPA compliance)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="collapsible">3. Tax Documentation</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <ul>
+                        <li>W-9 forms (US affiliates)</li>
+                        <li>1099 forms (paid >$600/year)</li>
+                        <li>International tax compliance (if applicable)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>FTC Compliance (CRITICAL)</h3>
+            <div class="alert alert-danger">
+                <h4>⚠️ MANDATORY DISCLOSURE REQUIREMENTS</h4>
+                <p>Affiliates MUST disclose their relationship with Tissini in every video. This is a federal legal requirement.</p>
+            </div>
+
+            <div class="card">
+                <h4>Proper Disclosure Examples:</h4>
+                <ul>
+                    <li>In video (text overlay): "Paid partnership with Tissini" or "#TissiniPartner"</li>
+                    <li>In caption: "#ad #affiliate #TissiniPartner"</li>
+                    <li>Verbal: "I'm a Tissini affiliate and earn commission"</li>
+                </ul>
+
+                <h4>Where to Disclose:</h4>
+                <ul>
+                    <li>Beginning of video (not buried at end)</li>
+                    <li>Video description</li>
+                    <li>Pinned comment</li>
+                </ul>
+
+                <h4>Requirements:</h4>
+                <ul>
+                    <li>Disclosure must be clear and conspicuous</li>
+                    <li>Must be in video + caption (not just one or the other)</li>
+                    <li>Verbal disclosure preferred</li>
+                </ul>
+            </div>
+
+            <div class="alert alert-danger">
+                <h4>Penalties for Non-Compliance:</h4>
+                <ul>
+                    <li>FTC fines up to $43,792 per violation</li>
+                    <li>Damage to brand reputation</li>
+                    <li>Potential lawsuit risk</li>
+                </ul>
+            </div>
+
+            <div class="card card-highlight">
+                <h4>Tissini's Compliance Responsibilities:</h4>
+                <ul>
+                    <li>Educate affiliates on requirements</li>
+                    <li>Monitor compliance regularly</li>
+                    <li>Provide disclosure guidelines in training</li>
+                    <li>Take action if affiliate violates</li>
+                    <li>Include in affiliate agreement</li>
+                    <li>Send automated email reminders</li>
+                </ul>
+            </div>
+
+            <h3>Risk Mitigation</h3>
+            <button class="collapsible">Risk 1: Fraud/Gaming the System</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Examples:</h4>
+                    <ul>
+                        <li>Fake accounts/click fraud</li>
+                        <li>Self-purchasing to earn commission</li>
+                        <li>Cookie stuffing</li>
+                    </ul>
+
+                    <h4>Mitigation:</h4>
+                    <ul>
+                        <li>Manual review of high-value orders</li>
+                        <li>Flag suspicious patterns (same IP, billing address)</li>
+                        <li>Refersion/Northbeam fraud detection</li>
+                        <li>Terms allowing clawback of fraudulent commissions</li>
+                        <li>Ban affiliates who violate terms</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="collapsible">Risk 2: Brand Damage from Affiliate Content</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Examples:</h4>
+                    <ul>
+                        <li>Inappropriate content</li>
+                        <li>False claims about products</li>
+                        <li>Poor quality representation</li>
+                        <li>Offensive messaging</li>
+                    </ul>
+
+                    <h4>Mitigation:</h4>
+                    <ul>
+                        <li>Clear content guidelines in agreement</li>
+                        <li>Pre-launch vetting of affiliates</li>
+                        <li>Regular content monitoring</li>
+                        <li>Option to review content before posting (for new affiliates)</li>
+                        <li>Immediate termination clause for violations</li>
+                        <li>Require brand approval for certain claims</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="collapsible">Risk 3: Channel Conflict with Emprendedoras</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Concern:</h4>
+                    <p>Current emprendedoras might see affiliates as competition</p>
+
+                    <h4>Mitigation:</h4>
+                    <ul>
+                        <li>Position as complementary, not competitive</li>
+                        <li>Encourage emprendedoras to BECOME affiliates</li>
+                        <li>Different customer bases (online vs personal network)</li>
+                        <li>Emphasize affiliate model has no inventory risk</li>
+                        <li>Frame as "expansion" not "replacement"</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="collapsible">Risk 4: Low Affiliate Engagement</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Scenario:</h4>
+                    <p>Affiliates sign up but don't post/sell</p>
+
+                    <h4>Mitigation:</h4>
+                    <ul>
+                        <li>Strong onboarding process</li>
+                        <li>Weekly support and accountability</li>
+                        <li>Inactive affiliate removal (after 90 days)</li>
+                        <li>Focus on quality over quantity</li>
+                        <li>Milestone incentives to motivate action</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="collapsible">Risk 5: Attribution Issues</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Problem:</h4>
+                    <p>Multiple affiliates claiming same sale</p>
+
+                    <h4>Mitigation:</h4>
+                    <ul>
+                        <li>Clear last-click attribution rules in agreement</li>
+                        <li>30-day cookie window (standard)</li>
+                        <li>Northbeam tracks full customer journey</li>
+                        <li>Dispute resolution process in place</li>
+                        <li>Transparent dashboard showing all activity</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="collapsible">Risk 6: Commission Costs Too High</button>
+            <div class="collapsible-content">
+                <div class="collapsible-content-inner">
+                    <h4>Scenario:</h4>
+                    <p>Commissions eat into margins excessively</p>
+
+                    <h4>Mitigation:</h4>
+                    <ul>
+                        <li>Start with conservative commission (15%)</li>
+                        <li>Monitor profitability by affiliate</li>
+                        <li>Adjust tiers based on performance</li>
+                        <li>Set maximum commission caps if needed</li>
+                        <li>Remember: Only pay for actual sales (performance-based)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- COMPARISON TAB -->
+        <div id="comparison" class="tab-content">
+            <h2>Affiliate vs Emprendedora Model Comparison</h2>
+
+            <h3>Side-by-Side Analysis</h3>
+            <table>
+                <tr>
+                    <th>Factor</th>
+                    <th>Current Emprendedora Model</th>
+                    <th>New Affiliate Model</th>
+                </tr>
+                <tr>
+                    <td><strong>Inventory Risk</strong></td>
+                    <td><span class="badge badge-warning">High</span> - Must buy stock</td>
+                    <td><span class="badge badge-success">None</span> - No inventory</td>
+                </tr>
+                <tr>
+                    <td><strong>Barrier to Entry</strong></td>
+                    <td><span class="badge badge-warning">High</span> - $500-1,000+ initial</td>
+                    <td><span class="badge badge-success">Zero</span> - $0 to start</td>
+                </tr>
+                <tr>
+                    <td><strong>Scalability</strong></td>
+                    <td><span class="badge badge-warning">Limited</span> - Inventory constraints</td>
+                    <td><span class="badge badge-success">Infinite</span> - Digital only</td>
+                </tr>
+                <tr>
+                    <td><strong>Geographic Reach</strong></td>
+                    <td>Local community only</td>
+                    <td>Global (wherever TikTok works)</td>
+                </tr>
+                <tr>
+                    <td><strong>Income Potential</strong></td>
+                    <td>$421/month average</td>
+                    <td>$200-5,000+/month</td>
+                </tr>
+                <tr>
+                    <td><strong>Time to First Sale</strong></td>
+                    <td>Immediate (if customers ready)</td>
+                    <td>1-4 weeks (build audience)</td>
+                </tr>
+                <tr>
+                    <td><strong>Skills Required</strong></td>
+                    <td>Personal sales, relationships</td>
+                    <td>Content creation, social media</td>
+                </tr>
+                <tr>
+                    <td><strong>Support Needed</strong></td>
+                    <td>Moderate</td>
+                    <td>High (initially)</td>
+                </tr>
+                <tr>
+                    <td><strong>Payment Model</strong></td>
+                    <td>Buy wholesale, sell retail</td>
+                    <td>Commission per sale</td>
+                </tr>
+                <tr>
+                    <td><strong>Profit Margin (Tissini)</strong></td>
+                    <td>~50% wholesale margin</td>
+                    <td>~80% (only pay commission)</td>
+                </tr>
+                <tr>
+                    <td><strong>Customer Base</strong></td>
+                    <td>Warm network</td>
+                    <td>Cold traffic from TikTok</td>
+                </tr>
+                <tr>
+                    <td><strong>Retention</strong></td>
+                    <td>Moderate (inconsistent orders)</td>
+                    <td>High (no inventory burden)</td>
+                </tr>
+            </table>
+
+            <h3>Current Emprendedora Performance Data</h3>
+            <div class="card">
+                <h4>From Your 200 EMPRENDEDORAS Data:</h4>
+                <ul>
+                    <li><strong>Total Monthly Revenue:</strong> ~$84,200 (200 emprendedoras × $421 avg)</li>
+                    <li><strong>Top Performer:</strong> $1,587/month (Mariana Revolorio #498518)</li>
+                    <li><strong>Top 10 Average:</strong> $1,200-2,000/month</li>
+                    <li><strong>Bottom 50%:</strong> $0-300/month (very inconsistent)</li>
+                    <li><strong>Challenge:</strong> Huge performance gap (12x difference top to bottom)</li>
+                    <li><strong>Problem:</strong> Many have months with $0 purchases (inventory holding risk)</li>
+                </ul>
+            </div>
+
+            <h3>Strategic Recommendation</h3>
+            <div class="alert alert-success">
+                <h4>✅ DON'T REPLACE - ADD AS NEW CHANNEL</h4>
+                <p><strong>Hybrid Strategy:</strong></p>
+            </div>
+
+            <div class="metric-grid">
+                <div class="metric-card">
+                    <h3 style="color: white; margin-top: 0;">Keep Emprendedora Model</h3>
+                    <ul style="text-align: left; font-size: 0.9em;">
+                        <li>Local community sales</li>
+                        <li>Personal relationships</li>
+                        <li>Immediate inventory turnover</li>
+                        <li>Established sellers</li>
+                    </ul>
+                </div>
+                <div class="metric-card">
+                    <h3 style="color: white; margin-top: 0;">Add Affiliate Model</h3>
+                    <ul style="text-align: left; font-size: 0.9em;">
+                        <li>Scalable growth</li>
+                        <li>National/international reach</li>
+                        <li>Digital-native sellers</li>
+                        <li>Lower risk experimentation</li>
+                    </ul>
+                </div>
+                <div class="metric-card">
+                    <h3 style="color: white; margin-top: 0;">Allow Overlap</h3>
+                    <ul style="text-align: left; font-size: 0.9em;">
+                        <li>Emprendedoras can be affiliates too</li>
+                        <li>Run both models simultaneously</li>
+                        <li>Different customer channels</li>
+                        <li>Maximize total market</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Why Both Models Work Together</h3>
+            <div class="card card-highlight">
+                <ol>
+                    <li><strong>Different Customer Acquisition:</strong> Emprendedoras reach warm networks, affiliates reach cold TikTok traffic</li>
+                    <li><strong>Different Skill Sets:</strong> Some people are better at personal selling, others at content creation</li>
+                    <li><strong>Risk Diversification:</strong> Don't put all eggs in one basket</li>
+                    <li><strong>Cross-Pollination:</strong> Top emprendedoras can become top affiliates (they already know products!)</li>
+                    <li><strong>Total Addressable Market:</strong> Maximize reach across all possible channels</li>
+                </ol>
+            </div>
+
+            <h3>Projected Combined Impact (Month 6)</h3>
+            <table>
+                <tr>
+                    <th>Channel</th>
+                    <th>Sellers</th>
+                    <th>Monthly Revenue</th>
+                    <th>% of Total</th>
+                </tr>
+                <tr>
+                    <td>Traditional Emprendedoras</td>
+                    <td>200</td>
+                    <td>$84,200</td>
+                    <td>46%</td>
+                </tr>
+                <tr>
+                    <td>New TikTok Affiliates</td>
+                    <td>150</td>
+                    <td>$100,000</td>
+                    <td>54%</td>
+                </tr>
+                <tr>
+                    <td><strong>TOTAL</strong></td>
+                    <td><strong>350</strong></td>
+                    <td><strong>$184,200</strong></td>
+                    <td><strong>100%</strong></td>
+                </tr>
+            </table>
+
+            <div class="alert alert-success">
+                <strong>Result:</strong> 119% increase in total revenue from direct sales channels without cannibalizing existing emprendedora business!
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, navtabs;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            navtabs = document.getElementsByClassName("nav-tab");
+            for (i = 0; i < navtabs.length; i++) {
+                navtabs[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            window.scrollTo(0, 0);
+        }
+
+        // Collapsible functionality
+        var coll = document.getElementsByClassName("collapsible");
+        for (var i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        }
+
+        // Search functionality
+        function searchContent() {
+            var input = document.getElementById("searchBox");
+            var filter = input.value.toLowerCase();
+            var allContent = document.querySelectorAll(".tab-content");
+
+            if (filter === "") {
+                return;
+            }
+
+            allContent.forEach(function(tab) {
+                var text = tab.textContent || tab.innerText;
+                if (text.toLowerCase().indexOf(filter) > -1) {
+                    var allTabs = document.getElementsByClassName("tab-content");
+                    for (var i = 0; i < allTabs.length; i++) {
+                        allTabs[i].classList.remove("active");
+                    }
+                    tab.classList.add("active");
+
+                    var navTabs = document.getElementsByClassName("nav-tab");
+                    for (var i = 0; i < navTabs.length; i++) {
+                        navTabs[i].classList.remove("active");
+                    }
+                    var tabId = tab.id;
+                    var correspondingButton = document.querySelector('[onclick*="' + tabId + '"]');
+                    if (correspondingButton) {
+                        correspondingButton.classList.add("active");
+                    }
+                }
+            });
+        }
+
+        // Editable fields functionality
+        function initEditableFields() {
+            var editableInputs = document.querySelectorAll('.editable-input');
+            var calculatedFields = document.querySelectorAll('.calculated');
+            var saveIndicator = document.getElementById('saveIndicator');
+            var values = {};
+
+            // Load saved values from localStorage
+            document.querySelectorAll('.editable').forEach(function(element) {
+                var key = element.getAttribute('data-key');
+                if (key) {
+                    var savedValue = localStorage.getItem('tissini-' + key);
+                    if (savedValue !== null) {
+                        values[key] = parseFloat(savedValue) || savedValue;
+                        if (!element.classList.contains('calculated')) {
+                            element.textContent = savedValue;
+                        }
+                    } else {
+                        values[key] = parseFloat(element.textContent) || element.textContent;
+                    }
+                }
+            });
+
+            // Calculate all fields initially
+            recalculateAll();
+
+            // Make calculated fields non-editable
+            calculatedFields.forEach(function(element) {
+                element.removeAttribute('contenteditable');
+            });
+
+            // Save and recalculate on input change
+            editableInputs.forEach(function(element) {
+                element.addEventListener('blur', function() {
+                    var key = this.getAttribute('data-key');
+                    var value = this.textContent.trim();
+
+                    // Parse numeric value
+                    var numericValue = parseFloat(value.replace(/[^0-9.-]/g, ''));
+
+                    if (key && !isNaN(numericValue)) {
+                        values[key] = numericValue;
+                        localStorage.setItem('tissini-' + key, numericValue);
+                        this.textContent = formatNumber(numericValue);
+                        recalculateAll();
+                        showSaveIndicator();
+                    }
+                });
+
+                // Save on Enter key
+                element.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        this.blur();
+                    }
+                });
+
+                // Prevent newlines
+                element.addEventListener('paste', function(e) {
+                    e.preventDefault();
+                    var text = (e.originalEvent || e).clipboardData.getData('text/plain');
+                    document.execCommand('insertText', false, text);
+                });
+            });
+
+            function recalculateAll() {
+                calculatedFields.forEach(function(element) {
+                    var key = element.getAttribute('data-key');
+                    var formula = element.getAttribute('data-formula');
+
+                    if (formula) {
+                        var result = evaluateFormula(formula, values);
+                        if (!isNaN(result)) {
+                            values[key] = result;
+                            element.textContent = formatNumber(result);
+                            localStorage.setItem('tissini-' + key, result);
+                        }
+                    }
+                });
+            }
+
+            function evaluateFormula(formula, vals) {
+                try {
+                    // Replace variable names with their values
+                    var expression = formula;
+                    for (var key in vals) {
+                        var value = vals[key];
+                        // Replace whole words only
+                        var regex = new RegExp('\\b' + key + '\\b', 'g');
+                        expression = expression.replace(regex, value);
+                    }
+                    // Evaluate the expression
+                    return eval(expression);
+                } catch (e) {
+                    console.error('Formula error:', formula, e);
+                    return 0;
+                }
+            }
+
+            function formatNumber(num) {
+                if (num >= 1000) {
+                    return num.toLocaleString('en-US', { maximumFractionDigits: 0 });
+                } else if (num % 1 !== 0) {
+                    return num.toFixed(2);
+                } else {
+                    return num.toString();
+                }
+            }
+
+            function showSaveIndicator() {
+                saveIndicator.classList.add('show');
+                setTimeout(function() {
+                    saveIndicator.classList.remove('show');
+                }, 2000);
+            }
+        }
+
+        // Initialize editable fields when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initEditableFields();
+        });
+
+        // Also initialize immediately in case DOMContentLoaded already fired
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initEditableFields);
+        } else {
+            initEditableFields();
+        }
+    </script>
+</body>
+</html>
