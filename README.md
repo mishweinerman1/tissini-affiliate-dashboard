@@ -4,16 +4,26 @@ Interactive dashboard for managing and planning the Tissini TikTok affiliate pro
 
 ## Features
 
-- **Dynamic Calculations**: Edit input fields (yellow) and watch calculated fields (green) update automatically
+### Core Dashboard
 - **10 Interactive Tabs**: Overview, Economics, Training, Content Strategy, Tracking, Recruitment, Support, Implementation, Legal, Comparison
+- **Dynamic Calculations**: Edit input fields (yellow) and watch calculated fields (green) update automatically
 - **Revenue Projections**: Fully editable financial models with real-time calculations
 - **Training Curriculum**: Complete 6-module affiliate training program
 - **Content Strategy**: 7 content types with video scripts and examples
 - **Search Functionality**: Search across all dashboard content
-- **Interactive Checkboxes**: Click to mark tasks complete with progress tracking
+
+### Authentication & Security
 - **🔐 User Authentication**: Secure login/signup system with Supabase
-- **🔥 Multi-User Sync**: Real-time collaboration across all team members
-- **Persistent Data**: Saved to PostgreSQL database (Supabase)
+- **🔒 Read-Only for Visitors**: Non-authenticated users can view the latest version but cannot edit
+- **👥 Multi-User Support**: Team members can collaborate in real-time
+- **🔑 Row Level Security**: Database-level security ensures data privacy
+
+### Task Management
+- **✅ Interactive Checkboxes**: Click to mark tasks complete with progress tracking
+- **➕ Add Custom Tasks**: Easily add new tasks to any week (Week 1-8)
+- **📊 Progress Tracking**: Real-time progress bar shows completion percentage
+- **🔄 Real-Time Sync**: Changes sync instantly across all users
+- **💾 Persistent Data**: All data saved to PostgreSQL database (Supabase)
 
 ## Quick Deploy to Netlify
 
@@ -78,11 +88,20 @@ Enable real-time collaboration with **Supabase** so your entire team can see che
 - ✅ **Row Level Security** - Data is secure by default
 
 ### How It Works:
-1. Users visit dashboard and see **login modal**
+
+**For Team Members (Authenticated):**
+1. Visit dashboard and see **login modal**
 2. Create account or login with existing credentials
-3. Check boxes to mark tasks complete
-4. Changes **instantly sync** to all logged-in team members
-5. All data persists in cloud database
+3. ✅ Check/uncheck boxes to mark tasks complete
+4. ➕ Add new tasks to any week using the task selector
+5. Changes **instantly sync** to all team members
+6. All edits persist in cloud database
+
+**For Visitors (Non-Authenticated):**
+1. Visit dashboard and see the **latest version**
+2. Can view all content and current task status
+3. Cannot edit or check boxes (read-only mode)
+4. Perfect for sharing progress with stakeholders
 
 ## File Structure
 

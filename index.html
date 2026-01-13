@@ -1,9 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+<!--
+    Tissini TikTok Affiliate Program Dashboard
+    Version: 3.1.1 (Critical Bug Fixes)
+    Last Updated: January 13, 2026
+
+    Features:
+    - Supabase authentication & real-time sync
+    - Week selector for adding tasks (Week 1-8)
+    - Read-only mode for non-authenticated visitors
+    - Interactive checkboxes with progress tracking
+    - Multi-user collaboration
+    - Complete legal documentation in Legal tab
+-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tissini TikTok Affiliate Program Dashboard</title>
+    <title>Tissini TikTok Affiliate Program Dashboard v3.1.1</title>
     <style>
         * {
             margin: 0;
@@ -812,6 +825,7 @@
     <script>
         // Tab switching function - must be defined before body loads
         function openTab(evt, tabName) {
+            console.log('🔍 Opening tab:', tabName);
             var i, tabcontent, navtabs;
             tabcontent = document.getElementsByClassName("tab-content");
             for (i = 0; i < tabcontent.length; i++) {
@@ -821,9 +835,34 @@
             for (i = 0; i < navtabs.length; i++) {
                 navtabs[i].classList.remove("active");
             }
-            document.getElementById(tabName).classList.add("active");
+
+            var tabElement = document.getElementById(tabName);
+            if (!tabElement) {
+                console.error('❌ Tab element not found:', tabName);
+                return;
+            }
+
+            tabElement.classList.add("active");
             evt.currentTarget.classList.add("active");
             window.scrollTo(0, 0);
+            console.log('✅ Tab opened:', tabName);
+        }
+
+        // Auth modal toggle functions - must be available for onclick handlers
+        function showLogin() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('signupForm').style.display = 'none';
+            document.getElementById('authError').innerHTML = '';
+            document.getElementById('signupError').innerHTML = '';
+            document.getElementById('signupSuccess').innerHTML = '';
+        }
+
+        function showSignup() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('signupForm').style.display = 'block';
+            document.getElementById('authError').innerHTML = '';
+            document.getElementById('signupError').innerHTML = '';
+            document.getElementById('signupSuccess').innerHTML = '';
         }
 
         // Show auth modal immediately when page loads
@@ -3286,165 +3325,122 @@ Equipo Tissini
                     <li>Start weekly WhatsApp group chat</li>
                 </ol>
                 <p><strong>Then iterate:</strong> Test & learn for 2-4 weeks, get feedback, fix issues, celebrate first sales, then scale by adding more affiliates (10 per week).</p>
-            
-            <h3>Ambassador Program Terms & Conditions</h3>
-            <div class="alert alert-info">
-                <strong>📄 Legal Framework:</strong> These terms govern the affiliate/ambassador program and must be reviewed and accepted by all participants.
             </div>
 
-            <button class="collapsible">Program Terms & Conditions (Full Text)</button>
-            <div class="collapsible-content">
-                <div class="collapsible-content-inner">
-                    <div class="card">
-                        <h4>AMBASSADOR PROGRAM TERMS AND CONDITIONS</h4>
-                        <p><em>Last updated: January 2026</em></p>
-                        
-                        <p>This Agreement describes and provides the terms and conditions (the "Terms") that govern and apply to your participation in our Company's Ambassador Program (the "Program").</p>
-                        
-                        <p><strong>You may only participate in the Program if you are eighteen (18) years of age or older.</strong></p>
-                        
-                        <div class="alert alert-danger">
-                            <strong>⚠️ IMPORTANT:</strong> FAILURE TO COMPLY WITH THESE TERMS WILL RESULT IN IMMEDIATE TERMINATION OF YOUR AMBASSADOR ACCOUNT AND ALL RELATED PRIVILEGES, AS WELL AS FORFEITURE OF ALL UNPAID COMMISSIONS THAT HAVE BEEN EARNED THROUGH YOUR PARTICIPATION IN THE AMBASSADOR PROGRAM.
-                        </div>
-                        
-                        <h4>1. Eligibility and Application</h4>
-                        <ul>
-                            <li>We reserve sole and exclusive discretion over the approval, acceptance, and/or rejection of any and all applications to join or otherwise participate in the Program.</li>
-                            <li>You may only participate in the Program if you are eighteen (18) years of age or older.</li>
-                            <li><strong>YOU ARE ONLY PERMITTED TO APPLY FOR AND USE ONE AMBASSADOR LINK.</strong></li>
-                            <li>Application for more than a single Ambassador Link, per person, is grounds for immediate termination and constitutes sufficient grounds for forfeiture of all unpaid commissions.</li>
-                        </ul>
-                        
-                        <h4>2. Commissions</h4>
-                        <ul>
-                            <li>Upon acceptance, you will receive a unique Ambassador Link to earn commission on purchases made through your link.</li>
-                            <li>Commission percentage varies by tier (10-20% based on performance).</li>
-                            <li>"Gross Revenue" refers to the amount actually paid by a customer and does not include shipping charges, sales tax, or similar charges.</li>
-                            <li>We will pay commissions in accordance with our then-applicable payment policies and practices.</li>
-                            <li>We reserve the right to modify payment policies at any time, with reasonable advance notice.</li>
-                        </ul>
-                        
-                        <h4>3. Program Communications and Platforms</h4>
-                        <ul>
-                            <li>We provide regular guidance and updates via online platforms (e.g., Telegram, WhatsApp, email).</li>
-                            <li>You are required to join such platforms upon receipt of notice.</li>
-                            <li>You are obligated to monitor such guidance and updates.</li>
-                            <li>We reserve the right to modify policies regarding permitted usage of Ambassador Links at any time.</li>
-                        </ul>
-                        
-                        <h4>4. Prohibited Uses of Ambassador Links</h4>
-                        <div class="alert alert-warning">
-                            <strong>DO NOT:</strong>
-                            <ul>
-                                <li>Reuse our (or another creator's) original content for your own purposes</li>
-                                <li>Share your Ambassador Link on public websites (e.g., Reddit, Google, coupon code sites, deal sites)</li>
-                                <li>Bid on our brand terms via any online advertising platform (e.g., Google Ads)</li>
-                                <li>Promote your Ambassador Link on our corporate TikTok profile or on other creators' profiles or posts</li>
-                                <li>Disparage our products, advertising content, company, employees, or business practices</li>
-                                <li>Use inappropriate language or reference controversial topics when promoting our brand</li>
-                                <li>Ask moderators about orders placed by you or by customers using your Ambassador Link</li>
-                                <li>Message employees or representatives on their personal social media accounts</li>
-                                <li>Ask employees about dates of new drops or restocks</li>
-                            </ul>
-                        </div>
-                        
-                        <h4>5. Representations and Warranties</h4>
-                        <p>You represent and warrant that:</p>
-                        <ul>
-                            <li>You are eighteen (18) years of age or older</li>
-                            <li>You have the legal right and authority to enter into this Agreement</li>
-                            <li>You will not violate any applicable laws or third-party agreements</li>
-                            <li>You will not infringe upon intellectual property, privacy, or publicity rights</li>
-                            <li>You will not engage in abusive, harassing, defamatory, obscene, hateful, racist, false, or misleading conduct</li>
-                        </ul>
-                        
-                        <h4>6. Termination</h4>
-                        <ul>
-                            <li>We may terminate or modify these Terms or your participation in the Program at any time, with or without notice.</li>
-                            <li>Upon termination, we shall provide a final report detailing earned commissions and pay such commissions in accordance with our policies, except for commissions forfeited due to violations.</li>
-                        </ul>
-                        
-                        <h4>7. Confidentiality and Proprietary Information</h4>
-                        <ul>
-                            <li>You agree to hold in confidence all Proprietary Information during and after your participation in the Program.</li>
-                            <li>"Proprietary Information" includes confidential, trade secret, and non-public business, marketing, and operational information.</li>
-                        </ul>
-                        
-                        <h4>8. Independent Contractor Relationship</h4>
-                        <ul>
-                            <li>The parties are independent contractors.</li>
-                            <li>Nothing in this Agreement creates an employment, partnership, or agency relationship.</li>
-                            <li>You are responsible for all taxes arising from your participation.</li>
-                        </ul>
-                        
-                        <h4>9. Indemnification</h4>
-                        <p>You agree to indemnify, defend, and hold harmless the Company and its affiliates from any claims, losses, damages, or expenses arising from your breach of these Terms or misconduct.</p>
-                        
-                        <h4>10. Arbitration; Governing Law</h4>
-                        <ul>
-                            <li>Any dispute shall be resolved by binding arbitration under the Commercial Arbitration Rules of the American Arbitration Association.</li>
-                            <li>These Terms are governed by applicable state laws, without regard to conflict-of-law principles.</li>
-                        </ul>
-                        
-                        <h4>11. Entire Agreement</h4>
-                        <p>These Terms constitute the entire agreement relating to the Program. Failure to enforce any provision does not constitute a waiver.</p>
-                        
-                        <div class="alert alert-success">
-                            <strong>✅ Acknowledgment:</strong> By applying for and participating in the Program, you acknowledge that you have read and understand these Terms and knowingly and voluntarily agree to be bound by them.
-                        </div>
-                    </div>
-                </div>
+            <div class="alert alert-info" style="margin-top: 30px;">
+                <strong>📄 Legal Documentation:</strong> Complete Ambassador Program Terms & Conditions are available in the <strong>Legal tab</strong>.
             </div>
 
         </div>
 
         <!-- LEGAL TAB -->
         <div id="legal" class="tab-content">
-            <h2>Legal & Compliance</h2>
+            <h2>⚖️ Legal & Compliance</h2>
 
-            <h3>Required Legal Documents</h3>
-            <button class="collapsible">1. Affiliate Agreement</button>
-            <div class="collapsible-content">
-                <div class="collapsible-content-inner">
-                    <h4>Must Include:</h4>
+            <div class="alert alert-info">
+                <strong>📄 Legal Framework:</strong> This page contains the complete legal documentation for the Tissini Ambassador/Affiliate Program including Terms & Conditions and FTC compliance requirements.
+            </div>
+
+            <div class="card">
+                <h3>AMBASSADOR PROGRAM TERMS AND CONDITIONS</h3>
+                <p><em>Last updated: January 2026</em></p>
+
+                <p>This Agreement describes and provides the terms and conditions (the "Terms") that govern and apply to your participation in our Company's Ambassador Program (the "Program").</p>
+
+                <p><strong>You may only participate in the Program if you are eighteen (18) years of age or older.</strong></p>
+
+                <div class="alert alert-danger">
+                    <strong>⚠️ IMPORTANT:</strong> FAILURE TO COMPLY WITH THESE TERMS WILL RESULT IN IMMEDIATE TERMINATION OF YOUR AMBASSADOR ACCOUNT AND ALL RELATED PRIVILEGES, AS WELL AS FORFEITURE OF ALL UNPAID COMMISSIONS THAT HAVE BEEN EARNED THROUGH YOUR PARTICIPATION IN THE AMBASSADOR PROGRAM.
+                </div>
+
+                <h4>1. Eligibility and Application</h4>
+                <ul>
+                    <li>We reserve sole and exclusive discretion over the approval, acceptance, and/or rejection of any and all applications to join or otherwise participate in the Program.</li>
+                    <li>You may only participate in the Program if you are eighteen (18) years of age or older.</li>
+                    <li><strong>YOU ARE ONLY PERMITTED TO APPLY FOR AND USE ONE AMBASSADOR LINK.</strong></li>
+                    <li>Application for more than a single Ambassador Link, per person, is grounds for immediate termination and constitutes sufficient grounds for forfeiture of all unpaid commissions.</li>
+                </ul>
+
+                <h4>2. Commissions</h4>
+                <ul>
+                    <li>Upon acceptance, you will receive a unique Ambassador Link to earn commission on purchases made through your link.</li>
+                    <li>Commission percentage varies by tier (10-20% based on performance).</li>
+                    <li>"Gross Revenue" refers to the amount actually paid by a customer and does not include shipping charges, sales tax, or similar charges.</li>
+                    <li>We will pay commissions in accordance with our then-applicable payment policies and practices.</li>
+                    <li>We reserve the right to modify payment policies at any time, with reasonable advance notice.</li>
+                </ul>
+
+                <h4>3. Program Communications and Platforms</h4>
+                <ul>
+                    <li>We provide regular guidance and updates via online platforms (e.g., Telegram, WhatsApp, email).</li>
+                    <li>You are required to join such platforms upon receipt of notice.</li>
+                    <li>You are obligated to monitor such guidance and updates.</li>
+                    <li>We reserve the right to modify policies regarding permitted usage of Ambassador Links at any time.</li>
+                </ul>
+
+                <h4>4. Prohibited Uses of Ambassador Links</h4>
+                <div class="alert alert-warning">
+                    <strong>DO NOT:</strong>
                     <ul>
-                        <li>Commission structure and payment terms</li>
-                        <li>Cookie duration (30 days recommended)</li>
-                        <li>Content guidelines and brand standards</li>
-                        <li>FTC disclosure requirements</li>
-                        <li>Prohibited activities (spam, false claims, etc.)</li>
-                        <li>Termination clauses</li>
-                        <li>Non-compete (optional)</li>
-                        <li>Intellectual property usage rights</li>
+                        <li>Reuse our (or another creator's) original content for your own purposes</li>
+                        <li>Share your Ambassador Link on public websites (e.g., Reddit, Google, coupon code sites, deal sites)</li>
+                        <li>Bid on our brand terms via any online advertising platform (e.g., Google Ads)</li>
+                        <li>Promote your Ambassador Link on our corporate TikTok profile or on other creators' profiles or posts</li>
+                        <li>Disparage our products, advertising content, company, employees, or business practices</li>
+                        <li>Use inappropriate language or reference controversial topics when promoting our brand</li>
+                        <li>Ask moderators about orders placed by you or by customers using your Ambassador Link</li>
+                        <li>Message employees or representatives on their personal social media accounts</li>
+                        <li>Ask employees about dates of new drops or restocks</li>
                     </ul>
+                </div>
+
+                <h4>5. Representations and Warranties</h4>
+                <p>You represent and warrant that:</p>
+                <ul>
+                    <li>You are eighteen (18) years of age or older</li>
+                    <li>You have the legal right and authority to enter into this Agreement</li>
+                    <li>You will not violate any applicable laws or third-party agreements</li>
+                    <li>You will not infringe upon intellectual property, privacy, or publicity rights</li>
+                    <li>You will not engage in abusive, harassing, defamatory, obscene, hateful, racist, false, or misleading conduct</li>
+                </ul>
+
+                <h4>6. Termination</h4>
+                <ul>
+                    <li>We may terminate or modify these Terms or your participation in the Program at any time, with or without notice.</li>
+                    <li>Upon termination, we shall provide a final report detailing earned commissions and pay such commissions in accordance with our policies, except for commissions forfeited due to violations.</li>
+                </ul>
+
+                <h4>7. Confidentiality and Proprietary Information</h4>
+                <ul>
+                    <li>You agree to hold in confidence all Proprietary Information during and after your participation in the Program.</li>
+                    <li>"Proprietary Information" includes confidential, trade secret, and non-public business, marketing, and operational information.</li>
+                </ul>
+
+                <h4>8. Independent Contractor Relationship</h4>
+                <ul>
+                    <li>The parties are independent contractors.</li>
+                    <li>Nothing in this Agreement creates an employment, partnership, or agency relationship.</li>
+                    <li>You are responsible for all taxes arising from your participation.</li>
+                </ul>
+
+                <h4>9. Indemnification</h4>
+                <p>You agree to indemnify, defend, and hold harmless the Company and its affiliates from any claims, losses, damages, or expenses arising from your breach of these Terms or misconduct.</p>
+
+                <h4>10. Arbitration; Governing Law</h4>
+                <ul>
+                    <li>Any dispute shall be resolved by binding arbitration under the Commercial Arbitration Rules of the American Arbitration Association.</li>
+                    <li>These Terms are governed by applicable state laws, without regard to conflict-of-law principles.</li>
+                </ul>
+
+                <h4>11. Entire Agreement</h4>
+                <p>These Terms constitute the entire agreement relating to the Program. Failure to enforce any provision does not constitute a waiver.</p>
+
+                <div class="alert alert-success">
+                    <strong>✅ Acknowledgment:</strong> By applying for and participating in the Program, you acknowledge that you have read and understand these Terms and knowingly and voluntarily agree to be bound by them.
                 </div>
             </div>
 
-            <button class="collapsible">2. Terms & Conditions</button>
-            <div class="collapsible-content">
-                <div class="collapsible-content-inner">
-                    <ul>
-                        <li>Program eligibility</li>
-                        <li>How tracking works</li>
-                        <li>Return/refund policy impact on commissions</li>
-                        <li>Dispute resolution</li>
-                        <li>Data privacy (GDPR/CCPA compliance)</li>
-                    </ul>
-                </div>
-            </div>
-
-            <button class="collapsible">3. Tax Documentation</button>
-            <div class="collapsible-content">
-                <div class="collapsible-content-inner">
-                    <ul>
-                        <li>W-9 forms (US affiliates)</li>
-                        <li>1099 forms (paid >$600/year)</li>
-                        <li>International tax compliance (if applicable)</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h3>FTC Compliance (CRITICAL)</h3>
+            <h3 style="margin-top: 40px;">FTC Compliance (CRITICAL)</h3>
             <div class="alert alert-danger">
                 <h4>⚠️ MANDATORY DISCLOSURE REQUIREMENTS</h4>
                 <p>Affiliates MUST disclose their relationship with Tissini in every video. This is a federal legal requirement.</p>
@@ -4030,8 +4026,8 @@ Equipo Tissini
         // Get your config from: https://supabase.com/dashboard/project/_/settings/api
         const SUPABASE_URL = 'https://acfbqqaijalemuvoayhm.supabase.co'
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFjZmJxcWFpamFsZW11dm9heWhtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzMTE1MjMsImV4cCI6MjA4Mzg4NzUyM30.4oiqLJo5sYB4cCz052Ml2vP6haZThTketOxrkhY5ylM'
-        
-        let supabase = null;
+
+        let supabaseClient = null;
         let currentUser = null;
         let checkboxSubscription = null;
         
@@ -4044,7 +4040,7 @@ Equipo Tissini
             }
             
             try {
-                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
                 console.log('✅ Supabase initialized successfully');
                 return true;
             } catch (error) {
@@ -4058,13 +4054,13 @@ Equipo Tissini
         // ============================================
         
         async function checkAuthState() {
-            if (!supabase) {
+            if (!supabaseClient) {
                 console.warn('Supabase not initialized - working in local mode');
                 return;
             }
             
             try {
-                const { data: { session } } = await supabase.auth.getSession();
+                const { data: { session } } = await supabaseClient.auth.getSession();
                 
                 if (session) {
                     currentUser = session.user;
@@ -4095,7 +4091,7 @@ Equipo Tissini
             errorDiv.innerHTML = '';
             
             try {
-                const { data, error } = await supabase.auth.signInWithPassword({
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
                     email: email,
                     password: password
                 });
@@ -4138,7 +4134,7 @@ Equipo Tissini
             button.textContent = 'Creating account...';
             
             try {
-                const { data, error } = await supabase.auth.signUp({
+                const { data, error } = await supabaseClient.auth.signUp({
                     email: email,
                     password: password
                 });
@@ -4180,7 +4176,7 @@ Equipo Tissini
                     checkboxSubscription = null;
                 }
                 
-                await supabase.auth.signOut();
+                await supabaseClient.auth.signOut();
                 currentUser = null;
                 hideUserInfo();
                 showAuthModal();
@@ -4226,22 +4222,9 @@ Equipo Tissini
         function hideUserInfo() {
             document.getElementById('userInfo').style.display = 'none';
         }
-        
-        function showLogin() {
-            document.getElementById('signupForm').style.display = 'none';
-            document.getElementById('loginForm').style.display = 'block';
-            document.getElementById('authError').innerHTML = '';
-            document.getElementById('signupError').innerHTML = '';
-            document.getElementById('signupSuccess').innerHTML = '';
-        }
-        
-        function showSignup() {
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('signupForm').style.display = 'block';
-            document.getElementById('authError').innerHTML = '';
-            document.getElementById('signupError').innerHTML = '';
-            document.getElementById('signupSuccess').innerHTML = '';
-        }
+
+        // Note: showLogin() and showSignup() are defined in <head> section
+        // so they're available immediately for onclick handlers
 
         // ============================================
         // CHECKBOX SYSTEM WITH SUPABASE BACKEND

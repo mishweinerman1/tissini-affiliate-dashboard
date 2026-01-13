@@ -1,8 +1,74 @@
-# Dashboard Updates - January 12, 2026
+# Dashboard Updates - January 13, 2026
 
-## 🔥 MAJOR UPDATE: Supabase Backend + Authentication
+## ✨ LATEST UPDATE: Enhanced Task Management + Fixes (v3.1.1)
 
-### Latest Changes (v3.0 - Supabase Authentication)
+### New in v3.1.1 - January 13, 2026 (Critical Bug Fixes)
+
+#### 🐛 Critical JavaScript Fixes:
+1. **Fixed Variable Conflict**
+   - Resolved "Identifier 'supabase' has already been declared" error
+   - Renamed internal variable to `supabaseClient` to avoid conflicts with global SDK
+   - All Supabase operations now work correctly
+
+2. **Fixed Auth Modal Functions**
+   - Moved `showLogin()` and `showSignup()` functions to `<head>` section
+   - Functions now available when onclick handlers need them
+   - Sign up/login links work properly
+
+3. **Fixed Legal & Comparison Tabs**
+   - Legal tab now displays full Ambassador Program Terms & Conditions
+   - Moved legal document from Implementation tab to Legal tab
+   - Removed collapsible wrappers - content displays immediately
+   - All 11 sections of terms now visible without clicking
+   - Comparison tab displays affiliate vs emprendedora analysis
+
+4. **Improved Tab Switching**
+   - Added error handling and logging to `openTab()` function
+   - Better debugging for tab navigation issues
+
+---
+
+### New in v3.1 - January 13, 2026
+
+#### 🎯 Enhanced Task Management:
+1. **➕ Week Selector for Adding Tasks**
+   - Choose which week to add tasks to (Week 1-8)
+   - Dropdown selector with all 8 weeks
+   - New tasks highlighted in blue for easy identification
+   - Confirmation message shows which week was updated
+   - Tasks appear at the top of selected week's checklist
+
+2. **🔒 Read-Only Mode for Visitors**
+   - Non-authenticated users can view the dashboard
+   - Can see current task status and progress
+   - Cannot edit or check boxes (read-only)
+   - Perfect for sharing progress with stakeholders
+   - Login required to make changes
+
+#### 🐛 Bug Fixes:
+1. **Fixed Checkbox Alignment Issues**
+   - Removed conflicting padding from yellow highlighted items
+   - All checkboxes now align perfectly
+   - Consistent spacing across all checklist items
+   - Better visual hierarchy
+
+2. **Improved Checkbox Styling**
+   - Better hover effects with smooth animations
+   - Clearer visual feedback when checking/unchecking
+   - Proper alignment with checkbox icons
+   - Fixed positioning issues in special highlighted items
+
+#### 🎨 UI Improvements:
+- New task input section with week selector
+- Blue highlight for newly added tasks
+- Improved form styling and layout
+- Better spacing and visual consistency
+
+---
+
+## 🔥 MAJOR UPDATE: Supabase Backend + Authentication (v3.0)
+
+### Changes in v3.0 - January 12, 2026
 
 The dashboard now includes **enterprise-grade authentication and real-time collaboration** powered by Supabase!
 
@@ -219,6 +285,22 @@ All requested changes from the screenshots and Terms & Conditions document have 
 
 ## Version History
 
+### v3.1.1 (January 13, 2026) - Critical Bug Fixes
+- Fixed JavaScript variable conflict (supabase identifier)
+- Fixed auth modal function availability (showLogin/showSignup)
+- Fixed Legal tab - now displays full terms & conditions
+- Moved legal document from Implementation to Legal tab
+- Fixed Comparison tab display
+- Improved tab switching with better error handling
+
+### v3.1 (January 13, 2026) - Enhanced Task Management + Fixes
+- Added week selector for adding tasks to any week
+- Added read-only mode for non-authenticated visitors
+- Fixed checkbox alignment issues in highlighted items
+- Improved checkbox styling and animations
+- Blue highlight for newly added tasks
+- Better UI consistency and spacing
+
 ### v3.0 (January 12, 2026) - Supabase Backend + Auth
 - Added Supabase authentication
 - Added real-time multi-user sync
@@ -258,7 +340,7 @@ All requested changes from the screenshots and Terms & Conditions document have 
 
 ---
 
-**Dashboard Version:** 3.0 (Supabase + Authentication)
-**Last Updated:** January 12, 2026
+**Dashboard Version:** 3.1.1 (Critical Bug Fixes)
+**Last Updated:** January 13, 2026
 **Changes By:** Claude Code
 **Status:** ✅ Production Ready

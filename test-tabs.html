@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .tab-content { display: none; background: #f0f0f0; padding: 20px; margin: 10px; }
+        .tab-content.active { display: block; border: 2px solid green; }
+        button { padding: 10px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Tab Test</h1>
+    <button onclick="openTab(event, 'tab1')">Tab 1</button>
+    <button onclick="openTab(event, 'legal')">Legal Tab</button>
+    <button onclick="openTab(event, 'comparison')">Comparison Tab</button>
+    
+    <div id="tab1" class="tab-content active">
+        <h2>Tab 1 Content</h2>
+        <p>This is tab 1</p>
+    </div>
+    
+    <div id="legal" class="tab-content">
+        <h2>Legal Content</h2>
+        <p>This is the legal tab</p>
+        <ul>
+            <li>Item 1</li>
+            <li>Item 2</li>
+        </ul>
+    </div>
+    
+    <div id="comparison" class="tab-content">
+        <h2>Comparison Content</h2>
+        <p>This is the comparison tab</p>
+    </div>
+    
+    <script>
+        function openTab(evt, tabName) {
+            console.log('Opening:', tabName);
+            var tabs = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+            var tab = document.getElementById(tabName);
+            if (tab) {
+                tab.classList.add("active");
+                console.log('✅ Opened:', tabName);
+            } else {
+                console.error('❌ Tab not found:', tabName);
+            }
+        }
+    </script>
+</body>
+</html>
