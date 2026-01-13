@@ -71,6 +71,47 @@ CREATE POLICY "Authenticated users can delete checkboxes"
 
 -- Enable Realtime
 ALTER PUBLICATION supabase_realtime ADD TABLE checkboxes;
+
+-- Create content_edits table (for inline editing)
+CREATE TABLE content_edits (
+    id BIGSERIAL PRIMARY KEY,
+    content_id TEXT UNIQUE NOT NULL,
+    content TEXT NOT NULL,
+    updated_by TEXT,
+    updated_at TIMESTAMPTZ DEFAULT NOW(),
+    created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Enable Row Level Security
+ALTER TABLE content_edits ENABLE ROW LEVEL SECURITY;
+
+-- Create policy: Authenticated users can read all content_edits
+CREATE POLICY "Authenticated users can read content_edits"
+    ON content_edits FOR SELECT
+    TO authenticated
+    USING (true);
+
+-- Create policy: Authenticated users can insert content_edits
+CREATE POLICY "Authenticated users can insert content_edits"
+    ON content_edits FOR INSERT
+    TO authenticated
+    WITH CHECK (true);
+
+-- Create policy: Authenticated users can update content_edits
+CREATE POLICY "Authenticated users can update content_edits"
+    ON content_edits FOR UPDATE
+    TO authenticated
+    USING (true)
+    WITH CHECK (true);
+
+-- Create policy: Authenticated users can delete content_edits
+CREATE POLICY "Authenticated users can delete content_edits"
+    ON content_edits FOR DELETE
+    TO authenticated
+    USING (true);
+
+-- Enable Realtime for content_edits
+ALTER PUBLICATION supabase_realtime ADD TABLE content_edits;
 ```
 
 4. Click **"Run"** (or press Ctrl/Cmd + Enter)

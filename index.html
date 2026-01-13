@@ -4069,6 +4069,7 @@ Equipo Tissini
                     await loadCheckboxStates();
                     subscribeToCheckboxChanges();
                     await loadFieldValues();
+                    await enableInlineEditing();
                     updateConnectionStatus(true);
                 } else {
                     showAuthModal();
@@ -4104,6 +4105,7 @@ Equipo Tissini
                 await loadCheckboxStates();
                 subscribeToCheckboxChanges();
                 await loadFieldValues();
+                await enableInlineEditing();
                 updateConnectionStatus(true);
                 
             } catch (error) {
@@ -4516,18 +4518,134 @@ Equipo Tissini
         function showSyncMessage(message, isError) {
             const indicator = document.getElementById('connectionIndicator');
             const status = document.getElementById('connectionStatus');
-            
+
             const originalText = status.textContent;
             status.textContent = message;
-            
+
             if (isError) {
                 indicator.className = 'connection-indicator disconnected';
             }
-            
+
             setTimeout(() => {
                 status.textContent = originalText;
                 indicator.className = currentUser ? 'connection-indicator connected' : 'connection-indicator disconnected';
             }, 2000);
+        }
+
+        // ============================================
+        // INLINE CONTENT EDITING SYSTEM
+        // ============================================
+
+        async function enableInlineEditing() {
+            if (!currentUser) return;
+
+            console.log('✏️ Enabling inline editing for authenticated user');
+
+            // Make all paragraphs, headings, and list items editable
+            const editableSelectors = '.tab-content p, .tab-content h3, .tab-content h4, .tab-content li, .tab-content td';
+            const editableElements = document.querySelectorAll(editableSelectors);
+
+            editableElements.forEach((element, index) => {
+                // Skip elements that are already input fields or buttons
+                if (element.querySelector('input') || element.querySelector('button') || element.closest('.auth-modal')) {
+                    return;
+                }
+
+                // Add data attribute for tracking
+                const contentId = `content-${element.tagName.toLowerCase()}-${index}`;
+                element.setAttribute('data-content-id', contentId);
+                element.setAttribute('contenteditable', 'true');
+                element.classList.add('editable-content');
+
+                // Add visual indicator on hover
+                element.style.cursor = 'text';
+                element.addEventListener('mouseenter', function() {
+                    if (!this.classList.contains('editing')) {
+                        this.style.background = 'rgba(102, 126, 234, 0.05)';
+                        this.style.outline = '1px dashed rgba(102, 126, 234, 0.3)';
+                    }
+                });
+                element.addEventListener('mouseleave', function() {
+                    if (!this.classList.contains('editing')) {
+                        this.style.background = '';
+                        this.style.outline = '';
+                    }
+                });
+
+                // Mark as editing when focused
+                element.addEventListener('focus', function() {
+                    this.classList.add('editing');
+                    this.style.background = 'rgba(102, 126, 234, 0.1)';
+                    this.style.outline = '2px solid rgba(102, 126, 234, 0.5)';
+                });
+
+                // Save changes when user clicks away
+                element.addEventListener('blur', async function() {
+                    this.classList.remove('editing');
+                    this.style.background = '';
+                    this.style.outline = '';
+
+                    const newContent = this.innerHTML;
+                    await saveContentEdit(contentId, newContent);
+                });
+            });
+
+            // Load saved content edits
+            await loadContentEdits();
+        }
+
+        async function saveContentEdit(contentId, content) {
+            if (!supabaseClient || !currentUser) return;
+
+            try {
+                const { error } = await supabaseClient
+                    .from('content_edits')
+                    .upsert({
+                        content_id: contentId,
+                        content: content,
+                        updated_by: currentUser.email,
+                        updated_at: new Date().toISOString()
+                    }, {
+                        onConflict: 'content_id'
+                    });
+
+                if (error) throw error;
+                console.log('✅ Content saved:', contentId);
+                showSyncMessage('✓ Saved', false);
+
+            } catch (error) {
+                console.error('❌ Error saving content:', error);
+                showSyncMessage('⚠ Save failed', true);
+            }
+        }
+
+        async function loadContentEdits() {
+            if (!supabaseClient) return;
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('content_edits')
+                    .select('*');
+
+                if (error) throw error;
+
+                console.log('📥 Loaded', data.length, 'content edits');
+
+                // Apply saved content to elements
+                data.forEach(edit => {
+                    const element = document.querySelector(`[data-content-id="${edit.content_id}"]`);
+                    if (element) {
+                        element.innerHTML = edit.content;
+                    }
+                });
+
+            } catch (error) {
+                console.error('❌ Error loading content edits:', error);
+                // Table might not exist yet - that's okay
+                if (error.message && error.message.includes('relation "content_edits" does not exist')) {
+                    console.log('ℹ️ content_edits table not created yet - run the SQL in SUPABASE_SETUP.md');
+                }
+            }
         }
 
 
