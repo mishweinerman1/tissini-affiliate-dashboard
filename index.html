@@ -966,10 +966,70 @@
                         window.currentUser = session.user;
                         initCheckboxSystem(true);
 
-                        // Enable inline editing
-                        if (typeof enableInlineEditing === 'function') {
-                            enableInlineEditing();
-                        }
+                        // Enable inline editing - INLINE VERSION
+                        console.log('✏️ Enabling inline editing for authenticated user (existing session)');
+                        const editableElements = document.querySelectorAll('.tab-content p, .tab-content h3, .tab-content h4, .tab-content li, .tab-content td');
+                        console.log('Found', editableElements.length, 'editable elements');
+
+                        editableElements.forEach((element, index) => {
+                            // Skip elements with input/button or in auth modal
+                            if (element.querySelector('input') || element.querySelector('button') || element.closest('.auth-modal')) {
+                                return;
+                            }
+
+                            const contentId = `content-${element.tagName.toLowerCase()}-${index}`;
+                            element.setAttribute('data-content-id', contentId);
+                            element.setAttribute('contenteditable', 'true');
+                            element.style.cursor = 'text';
+
+                            element.addEventListener('mouseenter', function() {
+                                if (!this.classList.contains('editing')) {
+                                    this.style.background = 'rgba(102, 126, 234, 0.05)';
+                                    this.style.outline = '1px dashed rgba(102, 126, 234, 0.3)';
+                                }
+                            });
+
+                            element.addEventListener('mouseleave', function() {
+                                if (!this.classList.contains('editing')) {
+                                    this.style.background = '';
+                                    this.style.outline = '';
+                                }
+                            });
+
+                            element.addEventListener('focus', function() {
+                                this.classList.add('editing');
+                                this.style.background = 'rgba(102, 126, 234, 0.1)';
+                                this.style.outline = '2px solid rgba(102, 126, 234, 0.5)';
+                            });
+
+                            element.addEventListener('blur', async function() {
+                                this.classList.remove('editing');
+                                this.style.background = '';
+                                this.style.outline = '';
+
+                                // Save to database
+                                const newContent = this.innerHTML;
+                                try {
+                                    const { error } = await supabaseClient
+                                        .from('content_edits')
+                                        .upsert({
+                                            content_id: contentId,
+                                            content: newContent,
+                                            updated_by: session.user.email,
+                                            updated_at: new Date().toISOString()
+                                        }, {
+                                            onConflict: 'content_id'
+                                        });
+
+                                    if (error) throw error;
+                                    console.log('✅ Content saved:', contentId);
+                                } catch (error) {
+                                    console.error('❌ Error saving content:', error);
+                                }
+                            });
+                        });
+
+                        console.log('✅ Inline editing enabled!');
 
                         // Show add task section
                         const addTaskSection = document.getElementById('addTaskSection');
@@ -1043,10 +1103,70 @@
                             // Initialize checkboxes for authenticated users
                             initCheckboxSystem(true);
 
-                            // Enable inline editing
-                            if (typeof enableInlineEditing === 'function') {
-                                enableInlineEditing();
-                            }
+                            // Enable inline editing - INLINE VERSION
+                            console.log('✏️ Enabling inline editing for authenticated user');
+                            const editableElements = document.querySelectorAll('.tab-content p, .tab-content h3, .tab-content h4, .tab-content li, .tab-content td');
+                            console.log('Found', editableElements.length, 'editable elements');
+
+                            editableElements.forEach((element, index) => {
+                                // Skip elements with input/button or in auth modal
+                                if (element.querySelector('input') || element.querySelector('button') || element.closest('.auth-modal')) {
+                                    return;
+                                }
+
+                                const contentId = `content-${element.tagName.toLowerCase()}-${index}`;
+                                element.setAttribute('data-content-id', contentId);
+                                element.setAttribute('contenteditable', 'true');
+                                element.style.cursor = 'text';
+
+                                element.addEventListener('mouseenter', function() {
+                                    if (!this.classList.contains('editing')) {
+                                        this.style.background = 'rgba(102, 126, 234, 0.05)';
+                                        this.style.outline = '1px dashed rgba(102, 126, 234, 0.3)';
+                                    }
+                                });
+
+                                element.addEventListener('mouseleave', function() {
+                                    if (!this.classList.contains('editing')) {
+                                        this.style.background = '';
+                                        this.style.outline = '';
+                                    }
+                                });
+
+                                element.addEventListener('focus', function() {
+                                    this.classList.add('editing');
+                                    this.style.background = 'rgba(102, 126, 234, 0.1)';
+                                    this.style.outline = '2px solid rgba(102, 126, 234, 0.5)';
+                                });
+
+                                element.addEventListener('blur', async function() {
+                                    this.classList.remove('editing');
+                                    this.style.background = '';
+                                    this.style.outline = '';
+
+                                    // Save to database
+                                    const newContent = this.innerHTML;
+                                    try {
+                                        const { error } = await supabaseClient
+                                            .from('content_edits')
+                                            .upsert({
+                                                content_id: contentId,
+                                                content: newContent,
+                                                updated_by: data.user.email,
+                                                updated_at: new Date().toISOString()
+                                            }, {
+                                                onConflict: 'content_id'
+                                            });
+
+                                        if (error) throw error;
+                                        console.log('✅ Content saved:', contentId);
+                                    } catch (error) {
+                                        console.error('❌ Error saving content:', error);
+                                    }
+                                });
+                            });
+
+                            console.log('✅ Inline editing enabled!');
 
                             // Show add task section
                             const addTaskSection = document.getElementById('addTaskSection');
