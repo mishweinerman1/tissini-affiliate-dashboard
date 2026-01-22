@@ -972,9 +972,10 @@
                         console.log('Found', editableElements.length, 'editable elements');
 
                         editableElements.forEach((element, index) => {
-                            // Skip elements with input/button or in auth modal
+                            // Skip elements with input/button, links, or in auth modal
                             if (element.querySelector('input') ||
                                 element.querySelector('button') ||
+                                element.querySelector('a') ||
                                 element.closest('.auth-modal')) {
                                 return;
                             }
@@ -1111,9 +1112,10 @@
                             console.log('Found', editableElements.length, 'editable elements');
 
                             editableElements.forEach((element, index) => {
-                                // Skip elements with input/button or in auth modal
+                                // Skip elements with input/button, links, or in auth modal
                                 if (element.querySelector('input') ||
                                     element.querySelector('button') ||
+                                    element.querySelector('a') ||
                                     element.closest('.auth-modal')) {
                                     return;
                                 }
@@ -4796,8 +4798,8 @@ Equipo Tissini
             const editableElements = document.querySelectorAll(editableSelectors);
 
             editableElements.forEach((element, index) => {
-                // Skip elements that are already input fields or buttons
-                if (element.querySelector('input') || element.querySelector('button') || element.closest('.auth-modal')) {
+                // Skip elements that are already input fields, buttons, or contain links
+                if (element.querySelector('input') || element.querySelector('button') || element.querySelector('a') || element.closest('.auth-modal')) {
                     return;
                 }
 
