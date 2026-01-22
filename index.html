@@ -554,6 +554,18 @@
             background: #fff3cd;
         }
 
+        /* Make links clickable inside editable content */
+        [contenteditable] a {
+            pointer-events: auto;
+            cursor: pointer;
+            user-select: auto;
+        }
+
+        [contenteditable="true"] a {
+            contenteditable: false;
+            -webkit-user-modify: read-only;
+        }
+
         /* Interactive Checkbox System */
         .checklist li {
             cursor: pointer;
@@ -2151,7 +2163,7 @@ Shop my favorites 👇
                     <td><strong>6. Lifestyle/Behind-the-Scenes</strong></td>
                     <td>3%</td>
                     <td>Builds authenticity and connection. Value prop content shows why Tissini is different.</td>
-                    <td><a href="https://www.facebook.com/ads/library/?id=1891485178396841" target="_blank">Value Prop Example</a></td>
+                    <td><a href="https://www.facebook.com/ads/library/?id=1891485178396841" target="_blank" contenteditable="false">Value Prop Example</a></td>
                 </tr>
                 <tr>
                     <td><strong>7. CTA/Sales</strong></td>
@@ -2425,7 +2437,7 @@ Use trending "this or that" sound
                     <div class="card" style="background: #f0f7ff; border-left: 4px solid #667eea;">
                         <h4>📺 Example Video:</h4>
                         <p><strong>Value Prop Strategy in Action:</strong></p>
-                        <a href="https://www.facebook.com/ads/library/?id=1891485178396841" target="_blank" style="color: #667eea; font-weight: 500;">
+                        <a href="https://www.facebook.com/ads/library/?id=1891485178396841" target="_blank" contenteditable="false" style="color: #667eea; font-weight: 500;">
                             → View Example: Tissini Value Prop Ad (Facebook Ad Library)
                         </a>
                         <p style="margin-top: 10px; font-size: 0.9em; color: #666;">
@@ -4844,6 +4856,15 @@ Equipo Tissini
 
             // Load saved content edits
             await loadContentEdits();
+
+            // Ensure all links are clickable even inside contenteditable elements
+            document.querySelectorAll('.tab-content a').forEach(link => {
+                link.setAttribute('contenteditable', 'false');
+                link.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    // Link will work normally
+                }, true);
+            });
         }
 
         async function saveContentEdit(contentId, content) {
